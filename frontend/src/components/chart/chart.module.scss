@@ -1,0 +1,194 @@
+@use '_tokens' as *;
+
+// Chart Component — 暗色主题
+
+.chart {
+  width: 100%;
+  margin: 20px 0;
+}
+
+.chartWrapper {
+  position: relative;
+  background: $bg-card;
+  border-radius: $radius-lg;
+  padding: 20px;
+  border: 1px solid $border-primary;
+  transition: all $transition-base;
+
+  &:hover {
+    border-color: $border-hover;
+    box-shadow: $shadow-md;
+  }
+}
+
+.chartTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: 16px;
+  padding-left: 12px;
+  border-left: 2px solid $accent-blue;
+  letter-spacing: -0.2px;
+}
+
+.chartContainer {
+  min-height: 300px;
+}
+
+.chartLoading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: $text-muted;
+  font-size: 13px;
+}
+
+.tableWrapper {
+  background: $bg-card;
+  border-radius: $radius-lg;
+  padding: 20px;
+  border: 1px solid $border-primary;
+
+  :global {
+    .ant-table {
+      font-size: 13px;
+      background: transparent;
+    }
+
+    .ant-table-thead > tr > th {
+      background: $bg-elevated;
+      font-weight: 600;
+      color: $text-primary;
+      border-bottom: 1px solid $border-primary;
+    }
+
+    .ant-table-tbody > tr > td {
+      border-bottom: 1px solid $border-subtle;
+      color: $text-secondary;
+    }
+
+    .ant-table-tbody > tr:hover > td {
+      background: $bg-hover;
+    }
+  }
+}
+
+.insights {
+  background: $bg-card;
+  border-radius: $radius-lg;
+  padding: 18px 22px;
+  margin: 20px 0;
+  border: 1px solid $border-primary;
+}
+
+.insightsTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 14px;
+    background: $accent-gradient;
+    border-radius: 1.5px;
+  }
+}
+
+.insightsList {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.insightItem {
+  position: relative;
+  color: $text-secondary;
+  font-size: 13px;
+  line-height: 1.8;
+  margin-bottom: 6px;
+  padding-left: 16px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 4px;
+    height: 4px;
+    background: $accent-blue;
+    border-radius: 50%;
+    opacity: 0.5;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// ReAct 步骤 — 暗色
+.reactThought {
+  background: $bg-card;
+  border: 1px solid $border-primary;
+  border-left: 2px solid $text-muted;
+  border-radius: $radius-md;
+  padding: 14px 18px;
+  margin: 10px 0;
+  font-size: 13px;
+  color: $text-secondary;
+}
+
+.reactAction {
+  background: $bg-card;
+  border: 1px solid $border-primary;
+  border-left: 2px solid $accent-blue;
+  border-radius: $radius-md;
+  padding: 14px 18px;
+  margin: 10px 0;
+  font-size: 13px;
+  color: $text-secondary;
+}
+
+.reactObservation {
+  background: $bg-card;
+  border: 1px solid $border-primary;
+  border-left: 2px solid $text-secondary;
+  border-radius: $radius-md;
+  padding: 14px 18px;
+  margin: 10px 0;
+  font-size: 13px;
+  color: $text-secondary;
+}
+
+.reactStep {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: $text-primary;
+}
+
+.reactStepNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: $accent-gradient;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.reactContent {
+  line-height: 1.7;
+  color: $text-secondary;
+}

@@ -1,0 +1,51 @@
+// DeepResearch — 对话历史抽屉暗色主题
+
+.session-drawer {
+  .ant-drawer-body {
+    padding: 12px;
+  }
+
+  .session-item {
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: all var(--transition-base);
+
+    &:hover {
+      background-color: var(--bg-hover);
+      border-color: var(--border-primary);
+    }
+
+    .ant-list-item-meta {
+      align-items: center;
+    }
+
+    .ant-list-item-meta-title {
+      margin-bottom: 0;
+      color: var(--text-primary);
+    }
+
+    .ant-list-item-meta-description {
+      color: var(--text-muted);
+    }
+
+    .ant-list-item-action {
+      margin-left: 8px;
+
+      .ant-btn {
+        color: var(--text-muted);
+
+        &:hover {
+          color: var(--text-primary);
+        }
+
+        &.ant-btn-dangerous {
+          &:hover {
+            color: #ff6b6b;
+          }
+        }
+      }
+    }
+  }
+}

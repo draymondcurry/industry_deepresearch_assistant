@@ -1,0 +1,115 @@
+// DeepResearch — Page Layout 暗色主题 + 抽屉式面板
+
+.com-page-layout {
+  display: flex;
+  position: relative;
+
+  .com-page-layout__main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: var(--bg-primary);
+
+    .com-page-layout__main-content {
+      flex: 1;
+      max-width: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+  }
+
+  .com-page-layout__sender {
+    position: sticky;
+    bottom: 0;
+    z-index: 900;
+    padding: 18px 40px;
+    background: var(--bg-primary);
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  // 旧模式兼容（非聊天页）
+  .com-page-layout__right {
+    flex-shrink: 0;
+    width: 408px;
+    background: var(--bg-secondary);
+    border-left: 1px solid var(--border-primary);
+  }
+}
+
+// ====== 悬浮重新打开按钮 ======
+.floating-reopen-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 100px;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #6C5CE7 0%, #a855f7 100%);
+  color: #fff;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 4px 20px rgba(108, 92, 231, 0.5);
+  transition: all 0.2s ease;
+  animation: floatingBtnIn 0.3s ease-out;
+  user-select: none;
+
+  &:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 28px rgba(108, 92, 231, 0.6);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .floating-reopen-btn__icon {
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .floating-reopen-btn__text {
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+  }
+}
+
+@keyframes floatingBtnIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+// ====== 研究面板抽屉 ======
+:global {
+  .research-drawer {
+    .ant-drawer-content-wrapper {
+      box-shadow: -8px 0 32px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    .ant-drawer-content {
+      background: var(--bg-secondary) !important;
+    }
+
+    .ant-drawer-header {
+      display: none;
+    }
+
+    .ant-drawer-body {
+      background: var(--bg-secondary);
+      padding: 0 !important;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

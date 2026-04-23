@@ -1,0 +1,72 @@
+// DeepResearch — Footer 用户区暗色主题
+
+.base-layout-footer {
+  flex-shrink: 0;
+  padding: 12px 10px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.user-avatar-wrapper {
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: background var(--transition-base);
+  padding: 6px;
+
+  &:hover {
+    background: var(--bg-hover);
+  }
+
+  .user-avatar {
+    background: linear-gradient(135deg, #6C5CE7 0%, #a855f7 100%);
+    color: #fff;
+    font-weight: 500;
+    border: none;
+    flex-shrink: 0;
+  }
+}
+
+.user-info-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.user-info-text {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.user-info-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// 用户下拉菜单
+:global {
+  .user-dropdown-overlay {
+    .ant-dropdown-menu {
+      min-width: 180px;
+    }
+  }
+}
+
+.user-menu-info {
+  padding: 4px 0;
+
+  .user-menu-name {
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .user-menu-email {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+}

@@ -1,0 +1,53 @@
+@use '_tokens' as *;
+
+// Source 来源列表 — 暗色主题
+
+.source__list {
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  .source__item {
+    display: flex;
+    align-items: center;
+    background-color: $bg-card;
+    border: 1px solid $border-primary;
+    border-radius: $radius-full;
+    padding: 10px;
+    font-size: 14px;
+    color: $text-secondary;
+    max-width: 100%;
+    box-sizing: border-box;
+    gap: 6px;
+    transition: border-color $transition-base;
+
+    &:hover {
+      border-color: $border-hover;
+    }
+
+    .icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: $radius-full;
+    }
+
+    .info {
+      flex-grow: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .host {
+      font-weight: bold;
+      color: $text-primary;
+    }
+
+    .name {
+      margin-left: 8px;
+      color: $text-muted;
+    }
+  }
+}

@@ -1,0 +1,396 @@
+@use '_tokens' as *;
+
+// DeepResearch — Chat Result 暗色主题
+
+.chat-message-result {
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  .chat-message-result__think {
+    margin-top: 12px;
+    color: $text-muted;
+    border-left: 1px solid $border-primary;
+    margin-left: 0;
+    padding-left: 16px;
+    margin-bottom: 12px;
+  }
+
+  .chat-message-result__md {
+    :global {
+      .refrence-token {
+        color: $accent-blue;
+        font-weight: 600;
+        text-decoration: underline;
+        text-decoration-color: rgba(108, 92, 231, 0.3);
+        text-underline-offset: 2px;
+      }
+    }
+  }
+}
+
+.chat-message-result__source {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  .item {
+    background-color: $bg-card;
+    border: 1px solid $border-primary;
+    border-radius: $radius-lg;
+    padding: 18px 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    &:hover {
+      background-color: $bg-hover;
+      border-color: $border-hover;
+      box-shadow: $shadow-md;
+    }
+
+    flex-basis: calc(50% - 8px);
+
+    @media (max-width: 768px) {
+      flex-basis: 100%;
+    }
+  }
+
+  .header {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 8px;
+
+    .id {
+      flex-shrink: 0;
+      color: $accent-blue;
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .icon {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      opacity: 0.6;
+    }
+
+    .url {
+      min-width: 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: $text-muted;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .title {
+      flex: 1;
+      min-width: 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: $text-primary;
+      line-height: 1.5;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .sourceUrl {
+    font-size: 12px;
+    color: $text-muted;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .content {
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: $text-muted;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+.chat-message-result__images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  .item {
+    border: 1px solid $border-primary;
+    box-sizing: border-box;
+    border-radius: $radius-md;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: $shadow-md;
+    }
+
+    flex-basis: calc(25% - 9px);
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+      flex-basis: calc(50% - 6px);
+    }
+  }
+
+  .box {
+    height: 0;
+    padding-bottom: 55.94%;
+    position: relative;
+
+    .cover {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.chat-message-result__thinks {
+  margin-top: 12px;
+  margin-bottom: 20px;
+  color: $text-muted;
+
+  .chat-message-result__thinks-item {
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: $text-primary;
+
+      .header-icon {
+        flex-shrink: 0;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 10px;
+        background-color: $text-muted;
+
+        &.thinking {
+          background: $accent-gradient;
+        }
+      }
+    }
+
+    .thinks-results {
+      border-left: 1px solid $border-primary;
+      margin: 8px 0;
+      margin-left: 9px;
+      padding: 12px 0;
+      padding-left: 18px;
+
+      .thinks-results__item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+
+        .content {
+          overflow: hidden;
+          font-size: 13px;
+          color: $text-secondary;
+        }
+
+        .count {
+          flex-shrink: 0;
+          font-size: 12px;
+          color: $text-muted;
+        }
+      }
+    }
+  }
+}
+
+// ReAct 智能推理过程样式 — 暗色
+.react-process {
+  margin: 20px 0;
+  padding: 20px 24px;
+  background: $bg-card;
+  border-radius: $radius-lg;
+  border: 1px solid $border-primary;
+  overflow: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.react-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid $border-subtle;
+}
+
+.react-step {
+  margin: 8px 0;
+  padding: 14px 18px;
+  border-radius: $radius-md;
+  animation: fadeInUp 0.3s ease-out;
+  transition: all var(--transition-base);
+  background: $bg-elevated;
+  border: 1px solid transparent;
+  overflow: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
+
+  &--plan { border-left: 2px solid $text-muted; background: $bg-card; }
+  &--thought { border-left: 2px solid $text-disabled; background: $bg-card; }
+  &--action { border-left: 2px solid $accent-blue; background: $bg-card; }
+  &--observation { border-left: 2px solid $text-secondary; background: $bg-card; }
+
+  &--clickable {
+    cursor: pointer;
+    &:hover {
+      background: $bg-hover;
+      border-color: $border-primary;
+    }
+  }
+}
+
+.react-step-detail-hint {
+  margin-left: auto;
+  font-size: 11px;
+  color: $text-disabled;
+  opacity: 0.7;
+  transition: opacity var(--transition-base);
+  .react-step--clickable:hover & { opacity: 1; color: $text-muted; }
+}
+
+.react-step-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.react-step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  height: 20px;
+  padding: 0 10px;
+  background: transparent;
+  border: 1px solid $border-primary;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.react-step-icon { font-size: 14px; color: $text-muted; }
+.react-step-label { font-weight: 600; font-size: 13px; color: $text-primary; }
+
+.react-step-tool {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  background: transparent;
+  border: 1px solid $border-primary;
+  border-radius: 4px;
+  font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+  font-size: 11px;
+  color: $text-muted;
+}
+
+.react-step-content {
+  font-size: 13px;
+  line-height: 1.7;
+  color: $text-secondary;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.react-step-markdown {
+  :global {
+    h1, h2, h3, h4, h5, h6 { margin: 16px 0 8px; color: $text-primary; font-weight: 600; }
+    h1 { font-size: 18px; } h2 { font-size: 16px; } h3 { font-size: 14px; }
+    p { margin: 8px 0; }
+    strong { color: $text-primary; font-weight: 600; }
+    ul, ol { margin: 8px 0; padding-left: 20px; }
+    li { margin: 4px 0; }
+  }
+}
+
+.react-step-params {
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: $bg-elevated;
+  border: 1px solid $border-primary;
+  border-radius: $radius-sm;
+  font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+  font-size: 10px;
+  line-height: 1.6;
+  overflow-x: auto;
+  max-height: 400px;
+  overflow-y: auto;
+  color: $text-secondary;
+  max-width: 100%;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+// 观察内容样式
+.obs-section { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+.obs-section-icon { font-size: 14px; }
+.obs-section-name { font-size: 13px; font-weight: 600; color: $text-primary; }
+
+.obs-stat { display: inline-flex; align-items: center; gap: 4px; margin-right: 16px; margin-bottom: 4px; }
+.obs-stat-label { font-size: 12px; color: $text-muted; }
+.obs-stat-value { font-size: 13px; font-weight: 600; color: $text-primary; }
+.obs-stat-unit { font-size: 11px; color: $text-muted; }
+
+.obs-quality { margin-top: 12px; padding-top: 10px; border-top: 1px solid $border-subtle; }
+.obs-quality-label { font-size: 11px; color: $text-muted; margin-bottom: 4px; }
+.obs-quality-value { font-size: 12px; line-height: 1.7; color: $text-secondary; }
+
+.obs-insights-title { margin-top: 10px; margin-bottom: 6px; font-size: 12px; font-weight: 600; color: $text-secondary; }
+.obs-insight-item { display: flex; align-items: flex-start; gap: 6px; margin-bottom: 4px; padding-left: 4px; font-size: 12px; line-height: 1.6; color: $text-secondary; }
+.obs-insight-bullet { color: $text-muted; flex-shrink: 0; }
+
+// 数据洞察
+.data-insights { margin: 20px 0; padding: 18px 22px; background: $bg-card; border-radius: $radius-lg; border: 1px solid $border-primary; }
+.insights-title { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: $text-primary; margin-bottom: 14px; }
+.insights-list { margin: 0; padding-left: 0; list-style: none;
+  li { position: relative; color: $text-secondary; font-size: 13px; line-height: 1.8; margin-bottom: 6px; padding-left: 16px;
+    &::before { content: ''; position: absolute; left: 0; top: 10px; width: 4px; height: 4px; background: $accent-blue; border-radius: 50%; opacity: 0.5; }
+    &:last-child { margin-bottom: 0; }
+  }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}

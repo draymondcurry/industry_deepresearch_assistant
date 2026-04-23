@@ -1,0 +1,45 @@
+@use '_tokens' as *;
+
+// ============================================
+// Premium Design System - Knowledge Graph
+// ============================================
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: $text-muted;
+  font-size: 13px;
+  gap: 12px;
+}
+
+.emptyIcon {
+  font-size: 28px;
+  opacity: 0.3;
+}
+
+.graph {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.stats {
+  font-size: 12px;
+  color: $text-muted;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid $border-subtle;
+  letter-spacing: 0.2px;
+}
+
+.chartContainer {
+  flex: 1;
+  min-height: 400px;
+  background: $bg-elevated;
+  border-radius: $radius-md;
+  overflow: hidden;
+  border: 1px solid $border-subtle;
+}

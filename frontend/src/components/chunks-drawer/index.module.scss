@@ -1,0 +1,75 @@
+@use '_tokens' as *;
+
+// Chunks Drawer — 暗色主题
+
+.drawer {
+  :global(.ant-drawer-body) {
+    padding: 16px;
+    background: $bg-secondary;
+  }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .filename {
+    font-weight: 500;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: $text-primary;
+  }
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+  gap: 16px;
+}
+
+.chunkList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chunkItem {
+  background: $bg-card;
+  border: 1px solid $border-primary;
+  border-radius: $radius-md;
+  padding: 16px;
+  transition: border-color $transition-base;
+
+  &:hover {
+    border-color: $border-hover;
+  }
+}
+
+.chunkHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid $border-subtle;
+}
+
+.charCount {
+  font-size: 12px;
+  color: $text-muted;
+}
+
+.chunkContent {
+  margin: 0 !important;
+  font-size: 14px;
+  line-height: 1.8;
+  color: $text-secondary;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

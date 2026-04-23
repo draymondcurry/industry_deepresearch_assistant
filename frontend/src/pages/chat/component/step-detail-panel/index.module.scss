@@ -1,0 +1,271 @@
+@use '_tokens' as *;
+
+// ============================================
+// Premium Design System - Step Detail Panel
+// ============================================
+
+.panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: $bg-card;
+  border-left: 1px solid $border-subtle;
+}
+
+.empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $text-muted;
+  font-size: 13px;
+}
+
+.header {
+  padding: 16px 20px;
+  border-bottom: 1px solid $border-subtle;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: $bg-card;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 13px;
+  color: $text-primary;
+  letter-spacing: -0.1px;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+
+  // 优雅的滚动条
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+.section {
+  margin-bottom: 24px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.sectionTitle {
+  font-weight: 600;
+  font-size: 11px;
+  color: $text-muted;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+
+  :global(.anticon) {
+    color: $text-secondary;
+    font-size: 12px;
+  }
+}
+
+// 搜索结果样式
+.searchResults {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.searchItem {
+  padding: 14px 16px;
+  background: $bg-card;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+
+  &:hover {
+    background: $bg-hover;
+    border-color: $border-subtle;
+  }
+}
+
+.searchTitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: $text-primary;
+  margin-bottom: 6px;
+  line-height: 1.5;
+  transition: color 0.2s;
+
+  .searchItem:hover & {
+    color: $text-primary;
+  }
+}
+
+.searchMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: $text-muted;
+  margin-bottom: 6px;
+}
+
+.source {
+  color: $text-secondary;
+  font-weight: 500;
+}
+
+.date {
+  color: $text-muted;
+}
+
+.searchSnippet {
+  font-size: 12px;
+  color: $text-secondary;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// 事实列表样式
+.factsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.factItem {
+  padding: 14px 16px;
+  background: $bg-card;
+  border-radius: $radius-md;
+  border-left: 2px solid $border-primary;
+  transition: all 0.2s;
+
+  &:hover {
+    border-left-color: $text-muted;
+  }
+}
+
+.factContent {
+  font-size: 13px;
+  color: $text-secondary;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.factMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.factSource {
+  font-size: 11px;
+  color: $text-muted;
+}
+
+.credibilityTag {
+  font-size: 10px !important;
+  padding: 2px 8px !important;
+  line-height: 16px !important;
+  border: 1px solid $border-primary;
+  background: transparent;
+  color: $text-secondary;
+}
+
+// 数据点样式
+.dataPointsList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dataPointItem {
+  display: flex;
+  align-items: center;
+  padding: 12px 14px;
+  background: $bg-elevated;
+  border-radius: $radius-sm;
+  font-size: 13px;
+  transition: background 0.2s;
+
+  &:hover {
+    background: $bg-hover;
+  }
+}
+
+.dpName {
+  color: $text-secondary;
+  margin-right: 12px;
+}
+
+.dpValue {
+  font-weight: 600;
+  color: $text-primary;
+  margin-right: 6px;
+}
+
+.dpYear {
+  color: $text-muted;
+  font-size: 11px;
+}
+
+// 洞察列表样式
+.insightsList {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+
+  li {
+    position: relative;
+    font-size: 13px;
+    color: $text-secondary;
+    line-height: 1.7;
+    margin-bottom: 8px;
+    padding-left: 16px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 4px;
+      height: 4px;
+      background: $text-disabled;
+      border-radius: 50%;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// 纯文本内容
+.plainContent {
+  font-size: 13px;
+  color: $text-secondary;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}

@@ -1,0 +1,140 @@
+// DeepResearch — Nav 导航暗色主题
+
+// ====== Logo 区域 ======
+.nav-logo {
+  padding: 20px 16px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  .nav-logo__text {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+  }
+
+  .nav-logo__mark {
+    font-size: 18px;
+    font-weight: 800;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+// ====== 行业选择器 ======
+.industry-selector {
+  padding: 0 10px 12px;
+  flex-shrink: 0;
+
+  &__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: var(--accent-gradient);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    overflow: hidden;
+    white-space: nowrap;
+
+    &:hover {
+      opacity: 0.9;
+      box-shadow: var(--accent-glow);
+    }
+
+    &--collapsed {
+      padding: 8px;
+      justify-content: center;
+    }
+  }
+
+  &__label {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__icon {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+
+  &__abbr {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
+// 行业下拉菜单项样式
+.industry-menu-item {
+  padding: 4px 0;
+
+  &__name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  &__desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+}
+
+// ====== 导航列表 ======
+.base-layout-nav {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 8px;
+}
+
+// ====== 折叠按钮 ======
+.nav-collapse-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  margin: 4px 8px 8px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 13px;
+  transition: all var(--transition-base);
+  overflow: hidden;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  &:hover {
+    color: var(--text-primary);
+    background: var(--bg-hover);
+  }
+
+  .anticon {
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  &__text {
+    font-size: 12px;
+  }
+}

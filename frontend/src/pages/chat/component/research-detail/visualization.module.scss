@@ -1,0 +1,105 @@
+@use '_tokens' as *;
+
+// ============================================
+// Premium Design System - Visualization
+// ============================================
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: $text-muted;
+  font-size: 13px;
+  gap: 12px;
+}
+
+.emptyIcon {
+  font-size: 28px;
+  opacity: 0.3;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: $bg-card;
+  border-radius: $radius-lg;
+  padding: 18px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid $border-subtle;
+
+  &:hover {
+    box-shadow: $shadow-md;
+    border-color: $border-hover;
+  }
+}
+
+.cardHeader {
+  margin-bottom: 14px;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: $text-primary;
+  margin: 0 0 4px;
+  letter-spacing: -0.2px;
+}
+
+.cardSubtitle {
+  font-size: 12px;
+  color: $text-muted;
+  margin: 0;
+}
+
+.chartContainer {
+  height: 360px;
+  background: $bg-elevated;
+  border-radius: $radius-md;
+  border: 1px solid $border-subtle;
+  overflow: hidden;
+}
+
+// matplotlib 生成的图片样式
+.imageWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.chartImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: $radius-sm;
+}
+
+// 无数据占位样式
+.noData {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: $text-muted;
+  font-size: 12px;
+  gap: 8px;
+
+  :global(.anticon) {
+    font-size: 24px;
+    opacity: 0.4;
+  }
+}

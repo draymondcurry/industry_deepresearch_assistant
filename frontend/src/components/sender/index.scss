@@ -1,0 +1,164 @@
+// DeepResearch — Sender 输入框组件暗色主题
+
+.com-sender {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: 12px;
+  transition: border-color var(--transition-base);
+
+  &:focus-within {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.1);
+  }
+
+  .com-sender__attachments {
+    padding: 12px 16px;
+    padding-bottom: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-bottom: 1px solid var(--border-subtle);
+
+    .ant-tag {
+      display: inline-flex !important;
+      align-items: center;
+      max-width: 220px;
+      padding: 6px 10px;
+      margin: 0;
+      font-size: 13px;
+      border-radius: 6px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-primary);
+      color: var(--text-secondary);
+
+      &.ant-tag-success {
+        background: rgba(82, 196, 26, 0.1);
+        border-color: rgba(82, 196, 26, 0.3);
+        color: #73d13d;
+      }
+
+      &.ant-tag-processing {
+        background: rgba(108, 92, 231, 0.1);
+        border-color: rgba(108, 92, 231, 0.3);
+        color: #9b8cff;
+      }
+
+      &.ant-tag-error {
+        background: rgba(255, 77, 79, 0.1);
+        border-color: rgba(255, 77, 79, 0.3);
+        color: #ff6b6b;
+      }
+
+      .anticon {
+        margin-right: 6px;
+        font-size: 14px;
+      }
+
+      .anticon-close {
+        margin-left: 6px;
+        margin-right: 0;
+        cursor: pointer;
+        font-size: 10px;
+        opacity: 0.5;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
+    .attachment-filename {
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+    .attachment-status {
+      font-size: 11px;
+      margin-left: 4px;
+      opacity: 0.6;
+    }
+  }
+
+  .ant-input {
+    background: transparent;
+    border: none;
+    padding: 14px 16px;
+    color: var(--text-primary);
+    box-shadow: none;
+
+    &::placeholder {
+      color: var(--text-muted);
+    }
+  }
+
+  .com-sender__actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 16px;
+    padding-top: 0;
+
+    .ant-btn {
+      --ant-button-padding-inline: 4px;
+
+      img {
+        width: 22px;
+        height: 22px;
+        -webkit-user-drag: none;
+        // 深色模式下 SVG 图标反色
+        filter: brightness(0) invert(0.75);
+      }
+    }
+
+    // 搜索模式按钮
+    .ant-btn-primary.ant-btn-background-ghost {
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+    }
+  }
+
+  .com-sender__footer {
+    margin-top: 20px;
+    color: var(--text-muted);
+
+    .ant-switch {
+      --ant-switch-track-height: 30px;
+      --ant-switch-handle-size: 26px;
+      --ant-switch-track-min-width: 56px;
+    }
+  }
+}
+
+// 搜索模式下拉菜单
+.com-sender__search-dropdown {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-primary);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  padding: 8px 4px;
+  min-width: 160px;
+
+  .ant-checkbox-wrapper {
+    display: flex;
+    padding: 8px 12px;
+    margin: 0;
+    border-radius: 6px;
+    transition: background var(--transition-fast);
+    width: 100%;
+
+    &:hover {
+      background: var(--bg-hover);
+    }
+
+    .ant-checkbox {
+      margin-right: 8px;
+    }
+
+    span:last-child {
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+  }
+}

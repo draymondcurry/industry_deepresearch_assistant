@@ -1,0 +1,75 @@
+@use '_tokens' as *;
+
+// DeepResearch — Chat Page 暗色主题
+
+.chat-page {
+  padding: 32px 40px;
+  margin: 0 auto;
+  max-width: 860px;
+  min-width: 0;
+  box-sizing: border-box;
+  position: relative;
+
+  .chat-page__header {
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    color: $text-primary;
+    letter-spacing: -0.3px;
+
+    .chat-page__header-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+// 悬浮研究面板按钮
+.open-research-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 100px;
+  z-index: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: $accent-gradient;
+  color: #fff;
+  border-radius: $radius-full;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 4px 20px rgba(108, 92, 231, 0.4);
+  transition: all $transition-base;
+  animation: slideInRight 0.3s ease-out;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(108, 92, 231, 0.5);
+  }
+
+  &__icon {
+    font-size: 16px;
+  }
+
+  &__text {
+    white-space: nowrap;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

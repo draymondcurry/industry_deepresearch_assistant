@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeepResearch 行业研究助手 — 系统架构图</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #020617;
+    color: #e2e8f0;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 32px;
+    min-height: 100vh;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .pulse-dot {
+    width: 10px; height: 10px;
+    background: #6C5CE7;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(108,92,231,0.7);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(108,92,231,0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(108,92,231,0); }
+    100% { box-shadow: 0 0 0 0 rgba(108,92,231,0); }
+  }
+  .title { font-size: 22px; font-weight: 700; color: #f1f5f9; }
+  .subtitle { font-size: 11px; color: #64748b; margin-top: 2px; }
+
+  .diagram-card {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+
+  svg text { font-family: 'JetBrains Mono', monospace; }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .card {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .card-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+  .card-dot.cyan  { background: #22d3ee; }
+  .card-dot.green { background: #34d399; }
+  .card-dot.violet{ background: #a78bfa; }
+  .card-dot.amber { background: #fbbf24; }
+  .card h3 { font-size: 11px; font-weight: 600; color: #f1f5f9; }
+  .card ul { list-style: none; }
+  .card ul li { font-size: 9px; color: #94a3b8; padding: 2px 0; }
+  .footer {
+    font-size: 9px;
+    color: #334155;
+    text-align: center;
+    padding-top: 16px;
+    border-top: 1px solid #1e293b;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="pulse-dot"></div>
+  <div>
+    <div class="title">DeepResearch 行业研究助手 — 系统架构图</div>
+    <div class="subtitle">Multi-Agent Deep Research Platform · FastAPI + React 19 · LangGraph Orchestration</div>
+  </div>
+</div>
+
+<div class="diagram-card">
+<svg viewBox="0 0 1200 860" xmlns="http://www.w3.org/2000/svg" width="100%" style="display:block;">
+  <defs>
+    <!-- Grid background -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+    </pattern>
+    <!-- Arrow markers -->
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#475569"/>
+    </marker>
+    <marker id="arrow-cyan" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#22d3ee"/>
+    </marker>
+    <marker id="arrow-violet" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#a78bfa"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#34d399"/>
+    </marker>
+    <marker id="arrow-amber" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#fbbf24"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="860" fill="#020617"/>
+  <rect width="1200" height="860" fill="url(#grid)"/>
+
+  <!-- ============================================================
+       LAYER 0: BROWSER / USER (top)
+  ============================================================ -->
+  <rect x="460" y="14" width="280" height="44" rx="6" fill="#0f172a"/>
+  <rect x="460" y="14" width="280" height="44" rx="6" fill="rgba(30,41,59,0.6)" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="600" y="33" fill="white" font-size="12" font-weight="600" text-anchor="middle">🌐  用户浏览器</text>
+  <text x="600" y="49" fill="#64748b" font-size="9" text-anchor="middle">Chrome / Safari / Edge</text>
+
+  <!-- ============================================================
+       LAYER 1: FRONTEND — boundary
+  ============================================================ -->
+  <rect x="20" y="76" width="760" height="210" rx="12" fill="none" stroke="#22d3ee" stroke-width="1" stroke-dasharray="6,3" opacity="0.5"/>
+  <text x="30" y="92" fill="#22d3ee" font-size="9" font-weight="600" opacity="0.8">FRONTEND  ·  React 19 + Vite + Ant Design 5</text>
+
+  <!-- State Management -->
+  <rect x="34" y="100" width="145" height="72" rx="6" fill="#0f172a"/>
+  <rect x="34" y="100" width="145" height="72" rx="6" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="106" y="120" fill="white" font-size="11" font-weight="600" text-anchor="middle">状态管理</text>
+  <text x="106" y="135" fill="#94a3b8" font-size="8" text-anchor="middle">Valtio Proxy</text>
+  <text x="106" y="149" fill="#64748b" font-size="8" text-anchor="middle">auth / industry</text>
+  <text x="106" y="161" fill="#64748b" font-size="8" text-anchor="middle">session / device</text>
+
+  <!-- Router -->
+  <rect x="196" y="100" width="130" height="72" rx="6" fill="#0f172a"/>
+  <rect x="196" y="100" width="130" height="72" rx="6" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="261" y="120" fill="white" font-size="11" font-weight="600" text-anchor="middle">路由层</text>
+  <text x="261" y="135" fill="#94a3b8" font-size="8" text-anchor="middle">React Router v6</text>
+  <text x="261" y="149" fill="#64748b" font-size="8" text-anchor="middle">AuthGuard</text>
+  <text x="261" y="161" fill="#64748b" font-size="8" text-anchor="middle">BaseLayout</text>
+
+  <!-- Pages -->
+  <rect x="344" y="100" width="160" height="72" rx="6" fill="#0f172a"/>
+  <rect x="344" y="100" width="160" height="72" rx="6" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="424" y="120" fill="white" font-size="11" font-weight="600" text-anchor="middle">页面层</text>
+  <text x="424" y="135" fill="#94a3b8" font-size="8" text-anchor="middle">Chat · Knowledge</text>
+  <text x="424" y="149" fill="#64748b" font-size="8" text-anchor="middle">News · Database</text>
+  <text x="424" y="161" fill="#64748b" font-size="8" text-anchor="middle">Bidding · Memory</text>
+
+  <!-- Components -->
+  <rect x="522" y="100" width="160" height="72" rx="6" fill="#0f172a"/>
+  <rect x="522" y="100" width="160" height="72" rx="6" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="602" y="120" fill="white" font-size="11" font-weight="600" text-anchor="middle">公共组件</text>
+  <text x="602" y="135" fill="#94a3b8" font-size="8" text-anchor="middle">Sender · Markdown</text>
+  <text x="602" y="149" fill="#64748b" font-size="8" text-anchor="middle">PageLayout · Chart</text>
+  <text x="602" y="161" fill="#64748b" font-size="8" text-anchor="middle">ResearchDetail Panel</text>
+
+  <!-- API Layer (Axios) -->
+  <rect x="34" y="192" width="648" height="78" rx="6" fill="#0f172a"/>
+  <rect x="34" y="192" width="648" height="78" rx="6" fill="rgba(8,51,68,0.25)" stroke="#22d3ee" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="358" y="214" fill="#22d3ee" font-size="11" font-weight="600" text-anchor="middle">API 客户端层  (Axios + SSE)</text>
+  <text x="140" y="234" fill="#94a3b8" font-size="8" text-anchor="middle">auth.ts</text>
+  <text x="240" y="234" fill="#94a3b8" font-size="8" text-anchor="middle">session.ts</text>
+  <text x="340" y="234" fill="#94a3b8" font-size="8" text-anchor="middle">knowledge.ts</text>
+  <text x="440" y="234" fill="#94a3b8" font-size="8" text-anchor="middle">news.ts</text>
+  <text x="540" y="234" fill="#94a3b8" font-size="8" text-anchor="middle">database.ts</text>
+  <text x="630" y="234" fill="#94a3b8" font-size="8" text-anchor="middle">memory.ts</text>
+  <text x="358" y="256" fill="#475569" font-size="8" text-anchor="middle">SSE 流式接收 (chat · deepsearch)  ·  JWT Bearer 认证  ·  错误重试插件</text>
+
+  <!-- ============================================================
+       LAYER 2: API GATEWAY
+  ============================================================ -->
+  <rect x="340" y="302" width="320" height="42" rx="6" fill="#0f172a"/>
+  <rect x="340" y="302" width="320" height="42" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="500" y="320" fill="white" font-size="11" font-weight="600" text-anchor="middle">API Gateway  /  CORS Middleware</text>
+  <text x="500" y="336" fill="#fbbf24" font-size="8" text-anchor="middle">FastAPI · Uvicorn · http://localhost:8000</text>
+
+  <!-- ============================================================
+       LAYER 3: BACKEND — boundary
+  ============================================================ -->
+  <rect x="20" y="360" width="760" height="240" rx="12" fill="none" stroke="#34d399" stroke-width="1" stroke-dasharray="6,3" opacity="0.5"/>
+  <text x="30" y="376" fill="#34d399" font-size="9" font-weight="600" opacity="0.8">BACKEND  ·  Python FastAPI + LangGraph Multi-Agent</text>
+
+  <!-- Auth Router -->
+  <rect x="34" y="383" width="108" height="72" rx="6" fill="#0f172a"/>
+  <rect x="34" y="383" width="108" height="72" rx="6" fill="rgba(6,78,59,0.4)" stroke="#34d399" stroke-width="1.5"/>
+  <text x="88" y="402" fill="white" font-size="10" font-weight="600" text-anchor="middle">Auth Router</text>
+  <text x="88" y="416" fill="#94a3b8" font-size="8" text-anchor="middle">JWT / OAuth</text>
+  <text x="88" y="430" fill="#64748b" font-size="8" text-anchor="middle">login / register</text>
+  <text x="88" y="444" fill="#64748b" font-size="8" text-anchor="middle">user profile</text>
+
+  <!-- Session Router -->
+  <rect x="152" y="383" width="108" height="72" rx="6" fill="#0f172a"/>
+  <rect x="152" y="383" width="108" height="72" rx="6" fill="rgba(6,78,59,0.4)" stroke="#34d399" stroke-width="1.5"/>
+  <text x="206" y="402" fill="white" font-size="10" font-weight="600" text-anchor="middle">Chat Router</text>
+  <text x="206" y="416" fill="#94a3b8" font-size="8" text-anchor="middle">SSE Stream</text>
+  <text x="206" y="430" fill="#64748b" font-size="8" text-anchor="middle">chat / deepsearch</text>
+  <text x="206" y="444" fill="#64748b" font-size="8" text-anchor="middle">attachments</text>
+
+  <!-- Knowledge Router -->
+  <rect x="270" y="383" width="108" height="72" rx="6" fill="#0f172a"/>
+  <rect x="270" y="383" width="108" height="72" rx="6" fill="rgba(6,78,59,0.4)" stroke="#34d399" stroke-width="1.5"/>
+  <text x="324" y="402" fill="white" font-size="10" font-weight="600" text-anchor="middle">Knowledge</text>
+  <text x="324" y="416" fill="#94a3b8" font-size="8" text-anchor="middle">Router</text>
+  <text x="324" y="430" fill="#64748b" font-size="8" text-anchor="middle">KB CRUD</text>
+  <text x="324" y="444" fill="#64748b" font-size="8" text-anchor="middle">doc upload</text>
+
+  <!-- Research Router -->
+  <rect x="388" y="383" width="108" height="72" rx="6" fill="#0f172a"/>
+  <rect x="388" y="383" width="108" height="72" rx="6" fill="rgba(6,78,59,0.4)" stroke="#34d399" stroke-width="1.5"/>
+  <text x="442" y="402" fill="white" font-size="10" font-weight="600" text-anchor="middle">Research</text>
+  <text x="442" y="416" fill="#94a3b8" font-size="8" text-anchor="middle">Router</text>
+  <text x="442" y="430" fill="#64748b" font-size="8" text-anchor="middle">checkpoint</text>
+  <text x="442" y="444" fill="#64748b" font-size="8" text-anchor="middle">restore state</text>
+
+  <!-- News Router -->
+  <rect x="506" y="383" width="108" height="72" rx="6" fill="#0f172a"/>
+  <rect x="506" y="383" width="108" height="72" rx="6" fill="rgba(6,78,59,0.4)" stroke="#34d399" stroke-width="1.5"/>
+  <text x="560" y="402" fill="white" font-size="10" font-weight="600" text-anchor="middle">News Router</text>
+  <text x="560" y="416" fill="#94a3b8" font-size="8" text-anchor="middle">行业资讯</text>
+  <text x="560" y="430" fill="#64748b" font-size="8" text-anchor="middle">bidding / stock</text>
+  <text x="560" y="444" fill="#64748b" font-size="8" text-anchor="middle">scheduler</text>
+
+  <!-- DB/Memory Router -->
+  <rect x="624" y="383" width="140" height="72" rx="6" fill="#0f172a"/>
+  <rect x="624" y="383" width="140" height="72" rx="6" fill="rgba(6,78,59,0.4)" stroke="#34d399" stroke-width="1.5"/>
+  <text x="694" y="402" fill="white" font-size="10" font-weight="600" text-anchor="middle">DB / Memory</text>
+  <text x="694" y="416" fill="#94a3b8" font-size="8" text-anchor="middle">Text2SQL · NL Query</text>
+  <text x="694" y="430" fill="#64748b" font-size="8" text-anchor="middle">database_router</text>
+  <text x="694" y="444" fill="#64748b" font-size="8" text-anchor="middle">memory_router</text>
+
+  <!-- Service connector label -->
+  <text x="400" y="472" fill="#475569" font-size="8" text-anchor="middle">↓  Service Layer</text>
+
+  <!-- Deep Research V2 -->
+  <rect x="34" y="483" width="310" height="100" rx="8" fill="#0f172a"/>
+  <rect x="34" y="483" width="310" height="100" rx="8" fill="rgba(6,78,59,0.35)" stroke="#34d399" stroke-width="1.5"/>
+  <text x="189" y="503" fill="white" font-size="11" font-weight="700" text-anchor="middle">⚙  DeepResearch V2 Engine</text>
+  <text x="189" y="517" fill="#34d399" font-size="9" text-anchor="middle">LangGraph Multi-Agent Orchestration</text>
+  <!-- Agents row -->
+  <rect x="44" y="526" width="56" height="26" rx="4" fill="rgba(6,78,59,0.5)" stroke="#34d399" stroke-width="1"/>
+  <text x="72" y="543" fill="#a7f3d0" font-size="8" font-weight="600" text-anchor="middle">Architect</text>
+  <rect x="108" y="526" width="46" height="26" rx="4" fill="rgba(6,78,59,0.5)" stroke="#34d399" stroke-width="1"/>
+  <text x="131" y="543" fill="#a7f3d0" font-size="8" font-weight="600" text-anchor="middle">Scout</text>
+  <rect x="162" y="526" width="56" height="26" rx="4" fill="rgba(6,78,59,0.5)" stroke="#34d399" stroke-width="1"/>
+  <text x="190" y="543" fill="#a7f3d0" font-size="8" font-weight="600" text-anchor="middle">DataAnalyst</text>
+  <rect x="226" y="526" width="44" height="26" rx="4" fill="rgba(6,78,59,0.5)" stroke="#34d399" stroke-width="1"/>
+  <text x="248" y="543" fill="#a7f3d0" font-size="8" font-weight="600" text-anchor="middle">Writer</text>
+  <rect x="278" y="526" width="56" height="26" rx="4" fill="rgba(6,78,59,0.5)" stroke="#34d399" stroke-width="1"/>
+  <text x="306" y="543" fill="#a7f3d0" font-size="8" font-weight="600" text-anchor="middle">Critic</text>
+  <text x="189" y="575" fill="#64748b" font-size="8" text-anchor="middle">planning → searching → analyzing → writing → reviewing</text>
+
+  <!-- Other services -->
+  <rect x="360" y="483" width="200" height="100" rx="6" fill="#0f172a"/>
+  <rect x="360" y="483" width="200" height="100" rx="6" fill="rgba(6,78,59,0.35)" stroke="#34d399" stroke-width="1.5"/>
+  <text x="460" y="503" fill="white" font-size="11" font-weight="600" text-anchor="middle">辅助服务</text>
+  <text x="460" y="519" fill="#94a3b8" font-size="8" text-anchor="middle">chat_service · react_controller</text>
+  <text x="460" y="533" fill="#64748b" font-size="8" text-anchor="middle">embedding_service · retrieval_service</text>
+  <text x="460" y="547" fill="#64748b" font-size="8" text-anchor="middle">document_service · scheduler_service</text>
+  <text x="460" y="561" fill="#64748b" font-size="8" text-anchor="middle">chart_generator · text2sql_service</text>
+
+  <!-- Tools -->
+  <rect x="576" y="483" width="188" height="100" rx="6" fill="#0f172a"/>
+  <rect x="576" y="483" width="188" height="100" rx="6" fill="rgba(6,78,59,0.35)" stroke="#34d399" stroke-width="1.5"/>
+  <text x="670" y="503" fill="white" font-size="11" font-weight="600" text-anchor="middle">工具执行层</text>
+  <text x="670" y="519" fill="#94a3b8" font-size="8" text-anchor="middle">tool_executor · web_search</text>
+  <text x="670" y="533" fill="#64748b" font-size="8" text-anchor="middle">milvus_service · stock_service</text>
+  <text x="670" y="547" fill="#64748b" font-size="8" text-anchor="middle">memory_service · smart_analyzer</text>
+  <text x="670" y="561" fill="#64748b" font-size="8" text-anchor="middle">news_collection · bidding_service</text>
+
+  <!-- ============================================================
+       LAYER 4: LLM / AI
+  ============================================================ -->
+  <rect x="800" y="76" width="378" height="520" rx="12" fill="none" stroke="#fbbf24" stroke-width="1" stroke-dasharray="6,3" opacity="0.5"/>
+  <text x="812" y="92" fill="#fbbf24" font-size="9" font-weight="600" opacity="0.8">AI &amp; EXTERNAL SERVICES</text>
+
+  <!-- LLM -->
+  <rect x="814" y="100" width="348" height="100" rx="8" fill="#0f172a"/>
+  <rect x="814" y="100" width="348" height="100" rx="8" fill="rgba(120,53,15,0.35)" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="988" y="122" fill="white" font-size="12" font-weight="700" text-anchor="middle">🤖  LLM &amp; Embedding</text>
+  <rect x="824" y="132" width="150" height="30" rx="4" fill="rgba(120,53,15,0.5)" stroke="#fbbf24" stroke-width="1"/>
+  <text x="899" y="151" fill="#fef3c7" font-size="9" font-weight="600" text-anchor="middle">阿里云 DashScope</text>
+  <rect x="988" y="132" width="164" height="30" rx="4" fill="rgba(120,53,15,0.5)" stroke="#fbbf24" stroke-width="1"/>
+  <text x="1070" y="151" fill="#fef3c7" font-size="9" font-weight="600" text-anchor="middle">Qwen3-Max (主模型)</text>
+  <text x="988" y="185" fill="#78716c" font-size="8" text-anchor="middle">text-embedding-v3 · OpenRouter (可选)</text>
+
+  <!-- Search APIs -->
+  <rect x="814" y="218" width="160" height="80" rx="6" fill="#0f172a"/>
+  <rect x="814" y="218" width="160" height="80" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="894" y="238" fill="white" font-size="11" font-weight="600" text-anchor="middle">🔍  搜索 API</text>
+  <text x="894" y="254" fill="#94a3b8" font-size="8" text-anchor="middle">博查 BochaAI</text>
+  <text x="894" y="268" fill="#64748b" font-size="8" text-anchor="middle">Web 深度搜索</text>
+  <text x="894" y="282" fill="#64748b" font-size="8" text-anchor="middle">Serper (可选)</text>
+
+  <!-- Industry APIs -->
+  <rect x="988" y="218" width="164" height="80" rx="6" fill="#0f172a"/>
+  <rect x="988" y="218" width="164" height="80" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="1070" y="238" fill="white" font-size="11" font-weight="600" text-anchor="middle">📊  行业 API</text>
+  <text x="1070" y="254" fill="#94a3b8" font-size="8" text-anchor="middle">聚合数据 股票行情</text>
+  <text x="1070" y="268" fill="#64748b" font-size="8" text-anchor="middle">阿里云市场 招投标</text>
+  <text x="1070" y="282" fill="#64748b" font-size="8" text-anchor="middle">DocMind 文档解析</text>
+
+  <!-- Document Processing -->
+  <rect x="814" y="316" width="160" height="80" rx="6" fill="#0f172a"/>
+  <rect x="814" y="316" width="160" height="80" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="894" y="336" fill="white" font-size="11" font-weight="600" text-anchor="middle">📄  文档处理</text>
+  <text x="894" y="352" fill="#94a3b8" font-size="8" text-anchor="middle">PyPDF2 · python-docx</text>
+  <text x="894" y="366" fill="#64748b" font-size="8" text-anchor="middle">openpyxl · trafilatura</text>
+  <text x="894" y="382" fill="#64748b" font-size="8" text-anchor="middle">BeautifulSoup4</text>
+
+  <!-- Visualization -->
+  <rect x="988" y="316" width="164" height="80" rx="6" fill="#0f172a"/>
+  <rect x="988" y="316" width="164" height="80" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="1070" y="336" fill="white" font-size="11" font-weight="600" text-anchor="middle">📈  可视化</text>
+  <text x="1070" y="352" fill="#94a3b8" font-size="8" text-anchor="middle">Matplotlib · Seaborn</text>
+  <text x="1070" y="366" fill="#64748b" font-size="8" text-anchor="middle">WordCloud · ECharts</text>
+  <text x="1070" y="382" fill="#64748b" font-size="8" text-anchor="middle">图表生成 + 前端渲染</text>
+
+  <!-- Scheduler -->
+  <rect x="814" y="414" width="338" height="56" rx="6" fill="#0f172a"/>
+  <rect x="814" y="414" width="338" height="56" rx="6" fill="rgba(120,53,15,0.25)" stroke="#fbbf24" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="983" y="434" fill="white" font-size="11" font-weight="600" text-anchor="middle">⏰  定时任务调度器</text>
+  <text x="983" y="452" fill="#94a3b8" font-size="8" text-anchor="middle">scheduler_service · 自动采集行业资讯 / 招投标 / 股票数据</text>
+
+  <!-- ============================================================
+       LAYER 5: DATA STORES
+  ============================================================ -->
+  <rect x="20" y="616" width="1158" height="220" rx="12" fill="none" stroke="#a78bfa" stroke-width="1" stroke-dasharray="6,3" opacity="0.5"/>
+  <text x="30" y="632" fill="#a78bfa" font-size="9" font-weight="600" opacity="0.8">DATA LAYER</text>
+
+  <!-- PostgreSQL -->
+  <rect x="34" y="642" width="200" height="174" rx="8" fill="#0f172a"/>
+  <rect x="34" y="642" width="200" height="174" rx="8" fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="134" y="665" fill="white" font-size="12" font-weight="700" text-anchor="middle">🐘  PostgreSQL</text>
+  <text x="134" y="681" fill="#a78bfa" font-size="9" text-anchor="middle">关系型数据库</text>
+  <text x="134" y="700" fill="#94a3b8" font-size="8" text-anchor="middle">users · sessions</text>
+  <text x="134" y="714" fill="#94a3b8" font-size="8" text-anchor="middle">messages · attachments</text>
+  <text x="134" y="728" fill="#94a3b8" font-size="8" text-anchor="middle">knowledge_bases · docs</text>
+  <text x="134" y="742" fill="#94a3b8" font-size="8" text-anchor="middle">industry_news · bidding</text>
+  <text x="134" y="756" fill="#94a3b8" font-size="8" text-anchor="middle">research_checkpoints</text>
+  <text x="134" y="772" fill="#64748b" font-size="8" text-anchor="middle">SQLAlchemy ORM · Alembic</text>
+  <text x="134" y="786" fill="#64748b" font-size="8" text-anchor="middle">industry_stats · policy_data</text>
+  <text x="134" y="800" fill="#64748b" font-size="8" text-anchor="middle">company_data (Text2SQL)</text>
+
+  <!-- Milvus -->
+  <rect x="252" y="642" width="220" height="174" rx="8" fill="#0f172a"/>
+  <rect x="252" y="642" width="220" height="174" rx="8" fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="362" y="665" fill="white" font-size="12" font-weight="700" text-anchor="middle">🔮  Milvus</text>
+  <text x="362" y="681" fill="#a78bfa" font-size="9" text-anchor="middle">向量数据库</text>
+  <text x="362" y="700" fill="#94a3b8" font-size="8" text-anchor="middle">知识库文档向量索引</text>
+  <text x="362" y="714" fill="#94a3b8" font-size="8" text-anchor="middle">语义检索 (RAG)</text>
+  <text x="362" y="728" fill="#94a3b8" font-size="8" text-anchor="middle">text-embedding-v3</text>
+  <text x="362" y="748" fill="#64748b" font-size="8" text-anchor="middle">MinIO (对象存储)</text>
+  <text x="362" y="762" fill="#64748b" font-size="8" text-anchor="middle">etcd (元数据)</text>
+  <text x="362" y="778" fill="#64748b" font-size="8" text-anchor="middle">v2.3.3 Standalone</text>
+  <text x="362" y="796" fill="#64748b" font-size="8" text-anchor="middle">pymilvus · LlamaIndex</text>
+
+  <!-- Redis -->
+  <rect x="490" y="642" width="190" height="174" rx="8" fill="#0f172a"/>
+  <rect x="490" y="642" width="190" height="174" rx="8" fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="585" y="665" fill="white" font-size="12" font-weight="700" text-anchor="middle">⚡  Redis</text>
+  <text x="585" y="681" fill="#a78bfa" font-size="9" text-anchor="middle">缓存 / 会话</text>
+  <text x="585" y="700" fill="#94a3b8" font-size="8" text-anchor="middle">用户会话缓存</text>
+  <text x="585" y="714" fill="#94a3b8" font-size="8" text-anchor="middle">SSE 取消信号</text>
+  <text x="585" y="728" fill="#94a3b8" font-size="8" text-anchor="middle">研究状态中间缓存</text>
+  <text x="585" y="748" fill="#64748b" font-size="8" text-anchor="middle">Redis 7 Alpine</text>
+  <text x="585" y="762" fill="#64748b" font-size="8" text-anchor="middle">redis-py 5.x</text>
+
+  <!-- File Storage -->
+  <rect x="698" y="642" width="190" height="174" rx="8" fill="#0f172a"/>
+  <rect x="698" y="642" width="190" height="174" rx="8" fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="793" y="665" fill="white" font-size="12" font-weight="700" text-anchor="middle">📁  文件存储</text>
+  <text x="793" y="681" fill="#a78bfa" font-size="9" text-anchor="middle">本地 / 对象存储</text>
+  <text x="793" y="700" fill="#94a3b8" font-size="8" text-anchor="middle">上传文档存储</text>
+  <text x="793" y="714" fill="#94a3b8" font-size="8" text-anchor="middle">生成图表 PNG</text>
+  <text x="793" y="728" fill="#94a3b8" font-size="8" text-anchor="middle">研究报告导出</text>
+  <text x="793" y="748" fill="#64748b" font-size="8" text-anchor="middle">PDF · DOCX · XLSX</text>
+  <text x="793" y="762" fill="#64748b" font-size="8" text-anchor="middle">图片 · Markdown</text>
+
+  <!-- Container -->
+  <rect x="906" y="642" width="252" height="174" rx="8" fill="#0f172a"/>
+  <rect x="906" y="642" width="252" height="174" rx="8" fill="rgba(76,29,149,0.35)" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="1032" y="665" fill="white" font-size="12" font-weight="700" text-anchor="middle">🐳  容器部署</text>
+  <text x="1032" y="681" fill="#a78bfa" font-size="9" text-anchor="middle">Docker Compose</text>
+  <text x="1032" y="700" fill="#94a3b8" font-size="8" text-anchor="middle">app (FastAPI + Uvicorn)</text>
+  <text x="1032" y="714" fill="#94a3b8" font-size="8" text-anchor="middle">postgres · redis</text>
+  <text x="1032" y="728" fill="#94a3b8" font-size="8" text-anchor="middle">milvus-standalone</text>
+  <text x="1032" y="742" fill="#94a3b8" font-size="8" text-anchor="middle">milvus-etcd · milvus-minio</text>
+  <text x="1032" y="762" fill="#64748b" font-size="8" text-anchor="middle">document-network bridge</text>
+  <text x="1032" y="776" fill="#64748b" font-size="8" text-anchor="middle">port 8000 (API)</text>
+  <text x="1032" y="790" fill="#64748b" font-size="8" text-anchor="middle">port 5183 (前端 Vite dev)</text>
+  <text x="1032" y="804" fill="#64748b" font-size="8" text-anchor="middle">port 19530 (Milvus)</text>
+
+  <!-- ============================================================
+       ARROWS / CONNECTIONS  (drawn early → behind boxes)
+  ============================================================ -->
+  <!-- Browser → Frontend -->
+  <line x1="600" y1="58" x2="600" y2="192" stroke="#22d3ee" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-cyan)" opacity="0.6"/>
+  <text x="612" y="130" fill="#22d3ee" font-size="8" opacity="0.8">HTTP/SSE</text>
+
+  <!-- Frontend → API Gateway -->
+  <line x1="500" y1="270" x2="500" y2="302" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrow-amber)" opacity="0.7"/>
+  <text x="510" y="290" fill="#fbbf24" font-size="8" opacity="0.8">REST+SSE</text>
+
+  <!-- API GW → Backend routers -->
+  <line x1="500" y1="344" x2="500" y2="383" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrow-green)" opacity="0.7"/>
+
+  <!-- Backend → DeepResearch V2 -->
+  <line x1="280" y1="455" x2="189" y2="483" stroke="#34d399" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arrow-green)" opacity="0.6"/>
+
+  <!-- Backend → LLM (right) -->
+  <line x1="764" y1="420" x2="814" y2="300" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-amber)" opacity="0.6"/>
+  <text x="798" y="360" fill="#fbbf24" font-size="8" opacity="0.8" transform="rotate(-30,798,360)">LLM API</text>
+
+  <!-- Backend → Search API -->
+  <line x1="764" y1="430" x2="814" y2="258" stroke="#fbbf24" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arrow-amber)" opacity="0.5"/>
+
+  <!-- Backend → PostgreSQL -->
+  <line x1="400" y1="600" x2="134" y2="642" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#arrow-violet)" opacity="0.6"/>
+
+  <!-- Backend → Milvus -->
+  <line x1="440" y1="600" x2="362" y2="642" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#arrow-violet)" opacity="0.6"/>
+
+  <!-- Backend → Redis -->
+  <line x1="500" y1="600" x2="585" y2="642" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#arrow-violet)" opacity="0.6"/>
+
+  <!-- Scheduler → External APIs -->
+  <line x1="983" y1="470" x2="1030" y2="414" stroke="#fbbf24" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arrow-amber)" opacity="0.5"/>
+
+</svg>
+</div>
+
+<div class="cards-grid">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-dot cyan"></div>
+      <h3>前端技术栈</h3>
+    </div>
+    <ul>
+      <li>• React 19 + TypeScript + Vite</li>
+      <li>• Ant Design 5 + 暗色科技主题</li>
+      <li>• Valtio 状态管理（Proxy）</li>
+      <li>• React Router v6 + AuthGuard</li>
+      <li>• Axios + SSE 流式接收</li>
+      <li>• ECharts 可视化 + Markdown</li>
+      <li>• 可收缩侧边栏 + 抽屉式研究面板</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-dot green"></div>
+      <h3>后端 &amp; AI 架构</h3>
+    </div>
+    <ul>
+      <li>• FastAPI + Uvicorn (Python)</li>
+      <li>• LangGraph Multi-Agent 编排</li>
+      <li>• 5 专业 Agent：Architect / Scout</li>
+      <li>•   DataAnalyst / Writer / Critic</li>
+      <li>• LlamaIndex RAG 知识检索</li>
+      <li>• SSE 20+ 事件类型实时推送</li>
+      <li>• 检查点持久化 + 状态恢复</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <div class="card-dot violet"></div>
+      <h3>数据 &amp; 基础设施</h3>
+    </div>
+    <ul>
+      <li>• PostgreSQL（业务数据 + Text2SQL）</li>
+      <li>• Milvus v2.3（向量检索 RAG）</li>
+      <li>• Redis（缓存 + SSE 取消信号）</li>
+      <li>• MinIO（Milvus 对象存储）</li>
+      <li>• 阿里云 DashScope（Qwen3-Max）</li>
+      <li>• 博查 BochaAI（Web 深度搜索）</li>
+      <li>• Docker Compose 一键部署</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer">
+  DeepResearch 行业研究助手 · System Architecture · React 19 + FastAPI + LangGraph + Milvus + PostgreSQL + Redis
+</div>
+
+</body>
+</html>

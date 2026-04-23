@@ -1,0 +1,276 @@
+// DeepResearch行业研究助手 — Ant Design 全局暗色覆盖
+
+// ====== 主按钮文字链接修正 ======
+.ant-btn-color-primary.ant-btn-variant-text {
+  --ant-color-link: var(--ant-color-primary);
+}
+
+// ====== 下拉菜单 — 统一暗色 ======
+.ant-dropdown-menu {
+  background-color: #1e1e3a !important;
+  border: 1px solid #2a2a4a !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+  border-radius: 8px !important;
+  padding: 4px !important;
+  --ant-color-bg-elevated: #1e1e3a;
+  --ant-color-text: #e8e8f0;
+  --ant-control-item-bg-hover: rgba(108, 92, 231, 0.15);
+
+  .ant-dropdown-menu-item {
+    color: #e8e8f0 !important;
+    border-radius: 6px !important;
+
+    &:hover {
+      background-color: rgba(108, 92, 231, 0.15) !important;
+    }
+
+    &-selected {
+      background-color: rgba(108, 92, 231, 0.2) !important;
+    }
+
+    &-danger {
+      color: #ff6b6b !important;
+
+      &:hover {
+        background-color: rgba(255, 107, 107, 0.1) !important;
+      }
+    }
+
+    &-disabled {
+      color: #505068 !important;
+    }
+  }
+
+  .ant-dropdown-menu-item-divider {
+    background-color: #2a2a4a !important;
+  }
+}
+
+// ====== 用户下拉 — 沿用统一暗色（移除旧白色覆盖）======
+.user-dropdown-overlay .ant-dropdown-menu {
+  // 继承上面的暗色样式即可，不再特殊覆盖白色
+}
+
+// ====== Popover ======
+.ant-popover {
+  .ant-popover-inner {
+    background-color: #1e1e3a;
+    border: 1px solid #2a2a4a;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  }
+
+  .ant-popover-arrow::before {
+    background-color: #1e1e3a;
+  }
+}
+
+// ====== Select 下拉 ======
+.ant-select-dropdown {
+  background-color: #1e1e3a !important;
+  border: 1px solid #2a2a4a !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+
+  .ant-select-item {
+    color: #e8e8f0 !important;
+
+    &-option-active {
+      background-color: rgba(108, 92, 231, 0.15) !important;
+    }
+
+    &-option-selected {
+      background-color: rgba(108, 92, 231, 0.25) !important;
+    }
+  }
+}
+
+// ====== Tooltip ======
+.ant-tooltip {
+  .ant-tooltip-inner {
+    background-color: #2a2a4a;
+    color: #e8e8f0;
+    border: 1px solid #3a3a5a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .ant-tooltip-arrow::before {
+    background-color: #2a2a4a;
+  }
+}
+
+// ====== Message 全局消息 ======
+.ant-message {
+  .ant-message-notice-content {
+    background-color: #1e1e3a;
+    color: #e8e8f0;
+    border: 1px solid #2a2a4a;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  }
+}
+
+// ====== Notification ======
+.ant-notification {
+  .ant-notification-notice {
+    background-color: #1e1e3a;
+    border: 1px solid #2a2a4a;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    color: #e8e8f0;
+  }
+}
+
+// ====== Drawer ======
+.ant-drawer {
+  .ant-drawer-content {
+    background-color: #1a1a2e;
+  }
+
+  .ant-drawer-header {
+    background-color: #1a1a2e;
+    border-bottom: 1px solid #2a2a4a;
+
+    .ant-drawer-title {
+      color: #e8e8f0;
+    }
+
+    .ant-drawer-close {
+      color: #a0a0b0;
+
+      &:hover {
+        color: #e8e8f0;
+      }
+    }
+  }
+
+  .ant-drawer-body {
+    background-color: #1a1a2e;
+  }
+}
+
+// ====== Modal ======
+.ant-modal {
+  .ant-modal-content {
+    background-color: #1a1a2e;
+    border: 1px solid #2a2a4a;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+  }
+
+  .ant-modal-header {
+    background-color: #1a1a2e;
+    border-bottom: 1px solid #2a2a4a;
+
+    .ant-modal-title {
+      color: #e8e8f0;
+    }
+  }
+
+  .ant-modal-close {
+    color: #a0a0b0;
+
+    &:hover {
+      color: #e8e8f0;
+    }
+  }
+
+  .ant-modal-body {
+    color: #e8e8f0;
+  }
+
+  .ant-modal-footer {
+    border-top: 1px solid #2a2a4a;
+  }
+}
+
+// ====== Spin 全屏 Loading ======
+.ant-spin-fullscreen {
+  background-color: rgba(15, 15, 15, 0.85) !important;
+}
+
+// ====== Popconfirm ======
+.ant-popconfirm {
+  .ant-popover-inner {
+    background-color: #1e1e3a;
+  }
+
+  .ant-popconfirm-message-title {
+    color: #e8e8f0;
+  }
+}
+
+// ====== Form ======
+.ant-form {
+  .ant-form-item-label > label {
+    color: #a0a0b0;
+  }
+
+  .ant-form-item-explain-error {
+    color: #ff6b6b;
+  }
+}
+
+// ====== Empty ======
+.ant-empty {
+  .ant-empty-description {
+    color: #707090;
+  }
+}
+
+// ====== Pagination ======
+.ant-pagination {
+  .ant-pagination-item {
+    background-color: #141428;
+    border-color: #2a2a4a;
+
+    a {
+      color: #a0a0b0;
+    }
+
+    &-active {
+      background-color: rgba(108, 92, 231, 0.2);
+      border-color: #6C5CE7;
+
+      a {
+        color: #6C5CE7;
+      }
+    }
+  }
+
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    .ant-pagination-item-link {
+      background-color: #141428;
+      border-color: #2a2a4a;
+      color: #a0a0b0;
+    }
+  }
+}
+
+// ====== Steps ======
+.ant-steps {
+  .ant-steps-item-title {
+    color: #e8e8f0 !important;
+  }
+
+  .ant-steps-item-description {
+    color: #707090 !important;
+  }
+}
+
+// ====== Upload ======
+.ant-upload {
+  &.ant-upload-drag {
+    background-color: #141428 !important;
+    border-color: #2a2a4a !important;
+
+    &:hover {
+      border-color: #6C5CE7 !important;
+    }
+  }
+}
+
+// ====== Skeleton ======
+.ant-skeleton {
+  .ant-skeleton-content .ant-skeleton-title,
+  .ant-skeleton-content .ant-skeleton-paragraph > li {
+    background: linear-gradient(90deg, #1e1e3a 25%, #2a2a4a 37%, #1e1e3a 63%) !important;
+    background-size: 400% 100% !important;
+  }
+}

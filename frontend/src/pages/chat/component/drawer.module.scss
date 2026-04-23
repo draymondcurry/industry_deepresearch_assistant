@@ -1,0 +1,39 @@
+@use '_tokens' as *;
+
+// Drawer 内部抽屉 — 暗色主题
+
+.drawer {
+  background: $bg-secondary;
+  border-top-left-radius: $radius-xl;
+  height: 100vh;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  padding: 12px 0;
+  display: flex;
+  flex-direction: column;
+
+  .drawer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 30px;
+
+    .drawer__title {
+      flex-grow: 1;
+      font-size: 22px;
+      font-weight: bold;
+      color: $text-primary;
+    }
+
+    .drawer__close {
+      color: $text-muted;
+      font-size: 12px;
+    }
+  }
+
+  .drawer__content {
+    padding: 12px 30px;
+    overflow: auto;
+  }
+}

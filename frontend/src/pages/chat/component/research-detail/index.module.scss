@@ -1,0 +1,267 @@
+@use '_tokens' as *;
+
+// DeepResearch — Research Detail Panel 暗色主题
+
+.panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: $bg-secondary;
+  overflow: hidden;
+}
+
+// 顶部栏：标题 + 收起按钮
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid $border-primary;
+  flex-shrink: 0;
+  background: $bg-secondary;
+}
+
+.panelTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: $text-primary;
+  letter-spacing: 0.3px;
+}
+
+.collapseBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1px solid $border-primary;
+  border-radius: $radius-full;
+  background: transparent;
+  color: $text-secondary;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all $transition-base;
+  white-space: nowrap;
+
+  .anticon {
+    font-size: 11px;
+  }
+
+  &:hover {
+    color: $text-primary;
+    border-color: $accent-blue;
+    background: rgba(108, 92, 231, 0.08);
+  }
+}
+
+.empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: $text-disabled;
+}
+
+.emptyIcon {
+  font-size: 40px;
+  margin-bottom: 16px;
+  opacity: 0.3;
+  color: $text-muted;
+}
+
+.emptyText {
+  font-size: 13px;
+  color: $text-muted;
+  letter-spacing: 0.3px;
+}
+
+// 研究进度步骤条
+.stepper {
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+  background: $bg-secondary;
+  border-bottom: 1px solid $border-primary;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.stepItem {
+  display: flex;
+  align-items: center;
+  position: relative;
+  opacity: 0.35;
+  transition: all $transition-medium;
+
+  &.completed { opacity: 1; }
+  &.running { opacity: 1; }
+
+  &.active {
+    .stepIcon {
+      background: $accent-gradient;
+      color: #fff;
+      box-shadow: $accent-glow;
+    }
+    .stepLabel {
+      color: $text-primary;
+      font-weight: 600;
+    }
+  }
+
+  &.clickable {
+    cursor: pointer;
+    &:hover .stepIcon { transform: scale(1.08); }
+  }
+}
+
+.stepIcon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: $bg-hover;
+  color: $text-muted;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  transition: all $transition-medium;
+  flex-shrink: 0;
+
+  .completed & { background: $accent-gradient; color: #fff; }
+  .running & { background: $accent-gradient; color: #fff; animation: softPulse 2s ease-in-out infinite; }
+}
+
+@keyframes softPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.3); }
+  50% { box-shadow: 0 0 0 6px rgba(108, 92, 231, 0); }
+}
+
+.stepLabel {
+  margin-left: 8px;
+  font-size: 12px;
+  color: $text-muted;
+  white-space: nowrap;
+  transition: all 0.3s;
+  font-weight: 500;
+}
+
+.stepLine {
+  width: 20px;
+  height: 1px;
+  background: $border-primary;
+  margin: 0 10px;
+  flex-shrink: 0;
+  transition: background 0.3s;
+  .completed + & { background: $accent-blue; }
+}
+
+// Tabs
+.tabs {
+  display: flex;
+  padding: 0 24px;
+  gap: 0;
+  border-bottom: 1px solid $border-primary;
+  flex-shrink: 0;
+  background: $bg-secondary;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 20px;
+  border: none;
+  background: transparent;
+  color: $text-muted;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  transition: all var(--transition-base);
+
+  &:hover { color: $text-primary; }
+
+  &.active {
+    color: $text-primary;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 20px;
+      right: 20px;
+      height: 2px;
+      background: $accent-gradient;
+      border-radius: 1px;
+    }
+  }
+}
+
+.count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+  background: $bg-hover;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 600;
+  color: $text-muted;
+
+  .active & {
+    background: $accent-gradient;
+    color: #fff;
+  }
+}
+
+// Content area
+.content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px 24px;
+  min-height: 0;
+
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb {
+    background: $border-primary;
+    border-radius: 2px;
+    &:hover { background: $border-hover; }
+  }
+}
+
+// Process Report
+.processReport {
+  padding: 8px 0;
+
+  :global {
+    .markdown-body {
+      font-size: 14px;
+      line-height: 1.8;
+      color: $text-secondary;
+
+      h1, h2, h3, h4, h5, h6 { margin-top: 24px; margin-bottom: 16px; font-weight: 600; color: $text-primary; }
+      h1 { font-size: 24px; } h2 { font-size: 20px; } h3 { font-size: 16px; }
+      p { margin-bottom: 16px; }
+      ul, ol { padding-left: 24px; margin-bottom: 16px; }
+      li { margin-bottom: 8px; }
+      blockquote { border-left: 3px solid $accent-blue; padding-left: 16px; margin: 16px 0; color: $text-muted; }
+      code { background: $bg-elevated; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: $accent-purple; }
+      pre { background: $bg-card; border: 1px solid $border-primary; padding: 16px; border-radius: 8px; overflow-x: auto;
+        code { background: none; padding: 0; color: $text-primary; }
+      }
+    }
+  }
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: $text-disabled;
+}

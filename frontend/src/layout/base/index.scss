@@ -1,0 +1,53 @@
+// DeepResearch — 可收缩侧边栏布局
+
+$sidebar-expanded: var(--sidebar-width-expanded);
+$sidebar-collapsed: var(--sidebar-width-collapsed);
+$transition: var(--transition-medium);
+
+.base-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+// ====== 侧边栏 ======
+.base-layout__sidebar {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: $sidebar-expanded;
+  background-color: var(--bg-secondary);
+  border-right: 1px solid var(--border-primary);
+  display: flex;
+  flex-direction: column;
+  transition: width $transition;
+  overflow: hidden;
+
+  .base-layout__sidebar-main {
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+// ====== 内容区 ======
+.base-layout__content {
+  margin-left: $sidebar-expanded;
+  flex: 1;
+  min-height: 100vh;
+  transition: margin-left $transition;
+}
+
+// ====== 折叠状态 ======
+.base-layout.sidebar-collapsed {
+  .base-layout__sidebar {
+    width: $sidebar-collapsed;
+  }
+
+  .base-layout__content {
+    margin-left: $sidebar-collapsed;
+  }
+}

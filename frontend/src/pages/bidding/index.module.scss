@@ -1,0 +1,44 @@
+@use '_tokens' as *;
+
+// Bidding Page — 暗色主题
+
+.bidding-page {
+  margin: 0 auto;
+  min-height: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+  max-width: 1400px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    h2 { margin: 0; font-size: 24px; font-weight: 600; color: $text-primary; }
+    .header-left { display: flex; align-items: center; gap: 8px; }
+    .header-right { display: flex; align-items: center; gap: 12px; }
+  }
+
+  .filters { margin-bottom: 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
+  .bidding-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .bidding-item {
+    padding: 16px;
+    background: $bg-card;
+    border-radius: $radius-md;
+    border: 1px solid $border-primary;
+    transition: all $transition-base;
+
+    &:hover { box-shadow: $shadow-md; border-color: $border-hover; }
+
+    .bidding-title { font-size: 16px; font-weight: 500; color: $text-primary; margin-bottom: 8px; line-height: 1.5; }
+    .bidding-info { display: flex; align-items: center; gap: 24px; margin-bottom: 8px; flex-wrap: wrap; }
+    .info-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: $text-secondary; }
+    .bidding-meta { display: flex; align-items: center; gap: 16px; font-size: 12px; color: $text-muted; }
+  }
+
+  .pagination-wrapper { margin-top: 24px; display: flex; justify-content: flex-end; }
+  .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 0; gap: 16px; }
+}

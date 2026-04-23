@@ -1,0 +1,82 @@
+// DeepResearch — 导航项暗色主题（双态：展开/收缩）
+
+.base-layout-nav__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 12px;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+
+  // 左侧活跃指示条
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 25%;
+    bottom: 25%;
+    width: 3px;
+    background: var(--accent-gradient);
+    border-radius: 0 3px 3px 0;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  // 展开态 — 横排: 图标 + 文字
+  &:hover {
+    color: var(--text-primary);
+    background: var(--bg-hover);
+  }
+
+  &.active {
+    color: var(--text-primary);
+    background: var(--bg-hover);
+
+    &::before {
+      opacity: 1;
+    }
+
+    .base-layout-nav__item-icon {
+      filter: brightness(0) invert(1);
+    }
+  }
+
+  // 收缩态 — 居中图标
+  &.collapsed {
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .base-layout-nav__item-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    // 暗色模式下图标反色为浅色
+    filter: brightness(0) invert(0.6);
+    transition: filter var(--transition-base);
+  }
+
+  .base-layout-nav__item-label {
+    font-size: 13px;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .base-layout-nav__item-dot {
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #ff6b6b;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+  }
+}

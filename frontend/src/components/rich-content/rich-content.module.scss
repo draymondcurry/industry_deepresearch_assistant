@@ -1,0 +1,188 @@
+@use '_tokens' as *;
+
+// Rich Content — 暗色主题
+
+.richContent {
+  width: 100%;
+}
+
+.textBlock {
+  margin: 8px 0;
+}
+
+.chartBlock {
+  margin: 20px 0;
+}
+
+.tableBlock {
+  margin: 20px 0;
+}
+
+.insightBlock {
+  margin: 20px 0;
+}
+
+// ReAct 思考过程块
+.thoughtBlock {
+  background: $bg-card;
+  border: 1px solid $border-primary;
+  border-left: 2px solid $text-muted;
+  border-radius: $radius-md;
+  padding: 14px 18px;
+  margin: 12px 0;
+}
+
+.actionBlock {
+  background: $bg-card;
+  border: 1px solid $border-primary;
+  border-left: 2px solid $accent-blue;
+  border-radius: $radius-md;
+  padding: 14px 18px;
+  margin: 12px 0;
+}
+
+.observationBlock {
+  background: $bg-card;
+  border: 1px solid $border-primary;
+  border-left: 2px solid $text-secondary;
+  border-radius: $radius-md;
+  padding: 14px 18px;
+  margin: 12px 0;
+
+  &.success {
+    border-left-color: #52c41a;
+  }
+
+  &.error {
+    border-left-color: #ff6b6b;
+  }
+}
+
+.blockHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.stepBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  height: 20px;
+  padding: 0 10px;
+  background: transparent;
+  border: 1px solid $border-primary;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.blockLabel {
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.toolName {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  background: transparent;
+  border: 1px solid $border-primary;
+  border-radius: 4px;
+  font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+  font-size: 11px;
+  color: $text-muted;
+}
+
+.blockContent {
+  font-size: 13px;
+  line-height: 1.7;
+  color: $text-secondary;
+}
+
+.paramsCode,
+.resultCode {
+  margin: 10px 0 0;
+  padding: 12px 14px;
+  background: $bg-elevated;
+  border: 1px solid $border-primary;
+  border-radius: $radius-sm;
+  font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+  font-size: 11px;
+  line-height: 1.6;
+  overflow-x: auto;
+  max-height: 200px;
+  overflow-y: auto;
+  color: $text-secondary;
+}
+
+// 代码块
+.codeBlock {
+  position: relative;
+  margin: 16px 0;
+  background: $bg-card;
+  border: 1px solid $border-primary;
+  border-radius: $radius-md;
+  overflow: hidden;
+}
+
+.codeLanguage {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  padding: 3px 10px;
+  background: $bg-elevated;
+  border-radius: 4px;
+  font-size: 10px;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.codeContent {
+  margin: 0;
+  padding: 18px;
+  overflow-x: auto;
+
+  code {
+    font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: $text-primary;
+  }
+}
+
+// 动画
+.thoughtBlock,
+.actionBlock,
+.observationBlock {
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .blockHeader {
+    flex-wrap: wrap;
+  }
+
+  .paramsCode,
+  .resultCode {
+    font-size: 10px;
+  }
+}

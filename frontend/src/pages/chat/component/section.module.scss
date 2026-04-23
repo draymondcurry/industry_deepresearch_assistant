@@ -1,0 +1,60 @@
+@use '_tokens' as *;
+
+// Section 折叠面板 — 暗色主题
+
+.section {
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  & + & {
+    margin-top: 40px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    &__icon {
+      width: 32px;
+      height: 32px;
+      background-color: rgba(108, 92, 231, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+
+      > img {
+        width: 27px;
+        height: 27px;
+        filter: brightness(0) invert(0.7);
+      }
+    }
+
+    &__title {
+      font-size: 20px;
+      color: $text-primary;
+      font-weight: bold;
+    }
+
+    &__arrow {
+      font-size: 14px;
+      color: $text-primary;
+      font-weight: bold;
+      margin-left: 4px;
+      transition: transform 0.3s ease;
+    }
+  }
+
+  :global {
+    .ant-collapse-header {
+      padding: 0 !important;
+    }
+    .ant-collapse-item-active {
+      :local(.section-header__arrow) {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}

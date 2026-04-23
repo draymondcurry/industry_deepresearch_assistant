@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c ':*)",
+      "Bash(npx vite *)",
+      "Bash(cat)",
+      "Bash(npx sass *)",
+      "Bash(find . -type f \\\\\\( -name '*.tsx' -o -name '*.ts' -o -name '*.scss' -o -name '*.css' \\\\\\) -exec grep -l '深圳市深维智见教育科技有限公司' {} \\\\;)",
+      "Bash(find . -type f \\\\\\( -name '*.tsx' -o -name '*.ts' -o -name '*.scss' -o -name '*.css' \\\\\\) -exec sed -i '/^\\\\/\\\\*\\\\*$/,/^ \\\\*\\\\/$/{ /Copyright.*深圳市深维智见/,/^ \\\\*\\\\/$/d; /^\\\\/\\\\*\\\\*$/d }' {} \\\\;)",
+      "Bash(cat *)",
+      "Bash(ls *)",
+      "Bash(python3 *)",
+      "Bash(find src *)",
+      "Bash(pip list *)",
+      "Bash(fc-list :lang=zh)"
+    ]
+  }
+}

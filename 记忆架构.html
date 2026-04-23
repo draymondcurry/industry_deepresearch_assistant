@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>DeepResearch 记忆架构</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1117; display: flex; justify-content: center; padding: 32px 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+  svg { max-width: 100%; height: auto; }
+</style>
+</head>
+<body>
+<svg width="1600" height="1920" viewBox="0 0 1600 1920" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#161b22"/>
+    <stop offset="100%" stop-color="#0d1117"/>
+  </linearGradient>
+  <linearGradient id="purpleTitleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#2d1b69"/>
+    <stop offset="100%" stop-color="#1c1040"/>
+  </linearGradient>
+  <linearGradient id="blueTitleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#0c2a5e"/>
+    <stop offset="100%" stop-color="#071a3e"/>
+  </linearGradient>
+  <linearGradient id="greenTitleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#0a3320"/>
+    <stop offset="100%" stop-color="#051a10"/>
+  </linearGradient>
+  <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#1a1040"/>
+    <stop offset="50%" stop-color="#0d1117"/>
+    <stop offset="100%" stop-color="#0a1a30"/>
+  </linearGradient>
+  <linearGradient id="arrowPurple" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#6e40c9"/>
+    <stop offset="100%" stop-color="#a855f7"/>
+  </linearGradient>
+  <linearGradient id="arrowBlue" x1="100%" y1="0%" x2="0%" y2="0%">
+    <stop offset="0%" stop-color="#1d4ed8"/>
+    <stop offset="100%" stop-color="#3b82f6"/>
+  </linearGradient>
+  <marker id="mPurple" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="#a855f7"/>
+  </marker>
+  <marker id="mBlue" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+    <polygon points="8 0, 0 3, 8 6" fill="#3b82f6"/>
+  </marker>
+  <marker id="mGray" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="#6b7280"/>
+  </marker>
+  <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+    <feGaussianBlur stdDeviation="4" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="softGlow" x="-10%" y="-10%" width="120%" height="120%">
+    <feGaussianBlur stdDeviation="2" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+</defs>
+
+<!-- ===== BACKGROUND ===== -->
+<rect width="1600" height="1920" fill="#0d1117"/>
+
+<!-- ===== HEADER ===== -->
+<rect x="0" y="0" width="1600" height="92" fill="url(#headerGrad)"/>
+<rect x="0" y="90" width="1600" height="2" fill="#6e40c9" opacity="0.7"/>
+<rect x="0" y="90" width="1600" height="1" fill="#a855f7" opacity="0.4"/>
+<text x="800" y="42" text-anchor="middle" font-size="26" font-weight="700" fill="#e6edf3" letter-spacing="1">DeepResearch 记忆架构</text>
+<text x="800" y="70" text-anchor="middle" font-size="13" fill="#8b949e">Memory Architecture · 双层记忆系统 + 多智能体共享状态 · deep_research_v2</text>
+
+<!-- ===== SHORT-TERM MEMORY BOX ===== -->
+<rect x="20" y="110" width="680" height="480" rx="10" fill="#161b22" stroke="#6e40c9" stroke-width="1.5"/>
+<rect x="20" y="110" width="680" height="44" rx="10" fill="url(#purpleTitleGrad)"/>
+<rect x="20" y="140" width="680" height="14" fill="url(#purpleTitleGrad)"/>
+<rect x="20" y="152" width="680" height="2" fill="#6e40c9" opacity="0.5"/>
+<text x="36" y="137" font-size="14" font-weight="600" fill="#c084fc">短期记忆</text>
+<text x="120" y="137" font-size="14" font-weight="400" fill="#8b949e">Short-term Memory</text>
+<text x="660" y="137" text-anchor="end" font-size="11" fill="#6e40c9">session-scoped</text>
+
+<!-- Redis sub-box -->
+<rect x="38" y="162" width="300" height="128" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+<rect x="38" y="162" width="300" height="28" rx="6" fill="#2d1b69" opacity="0.6"/>
+<rect x="38" y="178" width="300" height="12" fill="#2d1b69" opacity="0.6"/>
+<text x="52" y="181" font-size="12" font-weight="600" fill="#f87171">Redis</text>
+<text x="100" y="181" font-size="11" fill="#6b7280">· SessionService</text>
+<text x="52" y="204" font-size="11" fill="#8b949e">key: <tspan fill="#c084fc">session:{session_id}</tspan></text>
+<text x="52" y="220" font-size="11" fill="#8b949e">messages sorted set <tspan fill="#e6edf3">(max 20)</tspan></text>
+<text x="52" y="236" font-size="11" fill="#8b949e">token limit: <tspan fill="#e6edf3">5,000</tspan> (tiktoken cl100k)</text>
+<text x="52" y="252" font-size="11" fill="#8b949e">add_message() · get_history()</text>
+<text x="52" y="268" font-size="11" fill="#8b949e">get_messages_for_prompt()</text>
+
+<!-- PostgreSQL ChatMessage sub-box -->
+<rect x="356" y="162" width="326" height="128" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+<rect x="356" y="162" width="326" height="28" rx="6" fill="#0c2a5e" opacity="0.6"/>
+<rect x="356" y="178" width="326" height="12" fill="#0c2a5e" opacity="0.6"/>
+<text x="370" y="181" font-size="12" font-weight="600" fill="#60a5fa">PostgreSQL</text>
+<text x="448" y="181" font-size="11" fill="#6b7280">· ChatMessage</text>
+<text x="370" y="204" font-size="11" fill="#8b949e">role <tspan fill="#6b7280">(user/assistant/system)</tspan></text>
+<text x="370" y="220" font-size="11" fill="#8b949e">content <tspan fill="#6b7280">· thinking</tspan></text>
+<text x="370" y="236" font-size="11" fill="#8b949e">references_data <tspan fill="#6b7280">(JSONB)</tspan></text>
+<text x="370" y="252" font-size="11" fill="#8b949e">image_results <tspan fill="#6b7280">(JSONB)</tspan></text>
+<text x="370" y="268" font-size="11" fill="#8b949e">session_id <tspan fill="#6b7280">· created_at</tspan></text>
+
+<!-- ResearchState sub-box -->
+<rect x="38" y="302" width="644" height="272" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+<rect x="38" y="302" width="644" height="28" rx="6" fill="#1a1040" opacity="0.8"/>
+<rect x="38" y="318" width="644" height="12" fill="#1a1040" opacity="0.8"/>
+<text x="52" y="321" font-size="12" font-weight="600" fill="#c084fc">ResearchState</text>
+<text x="148" y="321" font-size="11" fill="#6b7280">TypedDict · LangGraph 全局工作记忆 (deep_research_v2/state.py)</text>
+<!-- Left column -->
+<text x="52" y="348" font-size="11" fill="#8b949e">query <tspan fill="#6b7280">· session_id · phase · iteration</tspan></text>
+<text x="52" y="364" font-size="11" fill="#8b949e">outline <tspan fill="#6b7280">(List[Section])</tspan></text>
+<text x="52" y="380" font-size="11" fill="#8b949e">hypotheses <tspan fill="#6b7280">(List[Dict])</tspan></text>
+<text x="52" y="396" font-size="11" fill="#8b949e">research_questions <tspan fill="#6b7280">(List[str])</tspan></text>
+<text x="52" y="412" font-size="11" fill="#8b949e">key_entities <tspan fill="#6b7280">· knowledge_graph</tspan></text>
+<text x="52" y="428" font-size="11" fill="#8b949e">facts <tspan fill="#6b7280">(List[Fact]) · data_points</tspan></text>
+<text x="52" y="444" font-size="11" fill="#8b949e">raw_sources <tspan fill="#6b7280">· insights</tspan></text>
+<text x="52" y="460" font-size="11" fill="#8b949e">charts <tspan fill="#6b7280">· code_executions</tspan></text>
+<text x="52" y="476" font-size="11" fill="#8b949e">draft_sections <tspan fill="#6b7280">(Dict[id→content])</tspan></text>
+<text x="52" y="492" font-size="11" fill="#8b949e">final_report <tspan fill="#6b7280">· references</tspan></text>
+<text x="52" y="508" font-size="11" fill="#8b949e">critic_feedback <tspan fill="#6b7280">· quality_score</tspan></text>
+<text x="52" y="524" font-size="11" fill="#8b949e">messages <tspan fill="#6b7280">(SSE流) · logs · errors</tspan></text>
+<!-- Vertical divider -->
+<line x1="360" y1="334" x2="360" y2="562" stroke="#30363d" stroke-width="1" stroke-dasharray="3,3"/>
+<!-- Right column: phase enum -->
+<text x="374" y="348" font-size="11" font-weight="600" fill="#a78bfa">ResearchPhase 状态机</text>
+<text x="374" y="366" font-size="11" fill="#6b7280">INIT → PLANNING → RESEARCHING</text>
+<text x="374" y="382" font-size="11" fill="#6b7280">→ ANALYZING → WRITING</text>
+<text x="374" y="398" font-size="11" fill="#6b7280">→ REVIEWING → RE_RESEARCHING</text>
+<text x="374" y="414" font-size="11" fill="#6b7280">→ REVISING → COMPLETED</text>
+<text x="374" y="438" font-size="11" font-weight="600" fill="#a78bfa">Fact 结构</text>
+<text x="374" y="454" font-size="11" fill="#6b7280">id · content · source_url</text>
+<text x="374" y="470" font-size="11" fill="#6b7280">source_type · credibility_score</text>
+<text x="374" y="486" font-size="11" fill="#6b7280">related_sections · verified</text>
+<text x="374" y="508" font-size="11" font-weight="600" fill="#a78bfa">AgentLog 结构</text>
+<text x="374" y="524" font-size="11" fill="#6b7280">agent · action · duration_ms · tokens_used</text>
+
+<!-- ===== LONG-TERM MEMORY BOX ===== -->
+<rect x="900" y="110" width="680" height="480" rx="10" fill="#161b22" stroke="#3b82f6" stroke-width="1.5"/>
+<rect x="900" y="110" width="680" height="44" rx="10" fill="url(#blueTitleGrad)"/>
+<rect x="900" y="140" width="680" height="14" fill="url(#blueTitleGrad)"/>
+<rect x="900" y="152" width="680" height="2" fill="#3b82f6" opacity="0.5"/>
+<text x="916" y="137" font-size="14" font-weight="600" fill="#60a5fa">长期记忆</text>
+<text x="996" y="137" font-size="14" font-weight="400" fill="#8b949e">Long-term Memory</text>
+<text x="1560" y="137" text-anchor="end" font-size="11" fill="#3b82f6">user-scoped · persistent</text>
+
+<!-- PostgreSQL LongTermMemory sub-box -->
+<rect x="918" y="162" width="644" height="158" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+<rect x="918" y="162" width="644" height="28" rx="6" fill="#0c2a5e" opacity="0.6"/>
+<rect x="918" y="178" width="644" height="12" fill="#0c2a5e" opacity="0.6"/>
+<text x="932" y="181" font-size="12" font-weight="600" fill="#60a5fa">PostgreSQL</text>
+<text x="1010" y="181" font-size="11" fill="#6b7280">· LongTermMemory (models/chat.py)</text>
+<text x="932" y="204" font-size="11" fill="#8b949e">user_id <tspan fill="#6b7280">(FK)</tspan>  ·  session_id <tspan fill="#6b7280">(FK, nullable)</tspan></text>
+<text x="932" y="220" font-size="11" fill="#8b949e">summary <tspan fill="#6b7280">(Text)</tspan></text>
+<text x="932" y="236" font-size="11" fill="#8b949e">key_insights <tspan fill="#6b7280">(JSONB: {summary, key_insights[], user_preferences{}, topics[]})</tspan></text>
+<text x="932" y="252" font-size="11" fill="#8b949e">milvus_ids <tspan fill="#6b7280">(ARRAY[Text])</tspan>  ·  token_count <tspan fill="#6b7280">(Integer)</tspan></text>
+<text x="932" y="268" font-size="11" fill="#8b949e">created_at <tspan fill="#6b7280">· 触发阈值: </tspan><tspan fill="#fbbf24">10,000 tokens</tspan></text>
+<text x="932" y="284" font-size="11" fill="#8b949e">get_user_memories() · delete_memory()</text>
+<text x="932" y="300" font-size="11" fill="#8b949e">create_memory() · should_compress()</text>
+
+<!-- Milvus sub-box -->
+<rect x="918" y="332" width="644" height="242" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+<rect x="918" y="332" width="644" height="28" rx="6" fill="#0a3320" opacity="0.7"/>
+<rect x="918" y="348" width="644" height="12" fill="#0a3320" opacity="0.7"/>
+<text x="932" y="351" font-size="12" font-weight="600" fill="#34d399">Milvus</text>
+<text x="978" y="351" font-size="11" fill="#6b7280">· Collection: long_term_memories</text>
+<text x="932" y="374" font-size="11" fill="#8b949e">id <tspan fill="#6b7280">(VARCHAR, primary)</tspan>  ·  user_id <tspan fill="#6b7280">(VARCHAR)</tspan></text>
+<text x="932" y="390" font-size="11" fill="#8b949e">session_id <tspan fill="#6b7280">(VARCHAR)</tspan></text>
+<text x="932" y="406" font-size="11" fill="#8b949e">memory_type: <tspan fill="#34d399">summary</tspan> / <tspan fill="#34d399">insight</tspan> / <tspan fill="#34d399">topics</tspan></text>
+<text x="932" y="422" font-size="11" fill="#8b949e">content <tspan fill="#6b7280">(VARCHAR max 65535)</tspan></text>
+<text x="932" y="438" font-size="11" fill="#8b949e">metadata <tspan fill="#6b7280">(JSON VARCHAR max 8192)</tspan></text>
+<text x="932" y="454" font-size="11" fill="#8b949e">vector <tspan fill="#fbbf24">(FLOAT_VECTOR dim=1024)</tspan></text>
+<text x="932" y="470" font-size="11" fill="#8b949e">Index: <tspan fill="#34d399">IVF_FLAT</tspan>  ·  Metric: <tspan fill="#34d399">COSINE</tspan>  ·  nlist=128</text>
+<text x="932" y="494" font-size="11" font-weight="600" fill="#34d399">向量化策略</text>
+<text x="932" y="510" font-size="11" fill="#6b7280">{memory_id}_summary  ·  {memory_id}_insight_{i}  ·  {memory_id}_topics</text>
+<text x="932" y="526" font-size="11" fill="#8b949e">generate_embedding() → insert → flush</text>
+<text x="932" y="542" font-size="11" fill="#8b949e">retrieve_memories() → COSINE search → build_memory_context()</text>
+
+<!-- ===== INTERACTION CENTER ===== -->
+<!-- Consolidation arrow: short → long -->
+<line x1="702" y1="310" x2="896" y2="310" stroke="url(#arrowPurple)" stroke-width="2.5" marker-end="url(#mPurple)"/>
+<rect x="730" y="270" width="140" height="34" rx="6" fill="#1a1040" stroke="#6e40c9" stroke-width="1"/>
+<text x="800" y="284" text-anchor="middle" font-size="11" font-weight="600" fill="#c084fc">压缩 Consolidation</text>
+<text x="800" y="298" text-anchor="middle" font-size="10" fill="#6b7280">10,000 tokens 触发</text>
+
+<!-- Retrieval arrow: long → short -->
+<line x1="896" y1="430" x2="702" y2="430" stroke="url(#arrowBlue)" stroke-width="2.5" marker-end="url(#mBlue)"/>
+<rect x="730" y="390" width="140" height="34" rx="6" fill="#071a3e" stroke="#3b82f6" stroke-width="1"/>
+<text x="800" y="404" text-anchor="middle" font-size="11" font-weight="600" fill="#60a5fa">检索 Retrieval</text>
+<text x="800" y="418" text-anchor="middle" font-size="10" fill="#6b7280">向量相似度搜索</text>
+
+<!-- MemoryService label -->
+<rect x="742" y="464" width="116" height="22" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+<text x="800" y="479" text-anchor="middle" font-size="10" fill="#8b949e">MemoryService</text>
+
+<!-- ===== INTERACTION FLOW BOX ===== -->
+<rect x="20" y="608" width="1560" height="152" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+<rect x="20" y="608" width="1560" height="36" rx="8" fill="#1a1040" opacity="0.7"/>
+<rect x="20" y="630" width="1560" height="14" fill="#1a1040" opacity="0.7"/>
+<rect x="20" y="642" width="1560" height="2" fill="#6e40c9" opacity="0.3"/>
+<text x="36" y="631" font-size="13" font-weight="600" fill="#c084fc">交互流程</text>
+<text x="110" y="631" font-size="13" fill="#8b949e">Interaction Flow · memory_service.py</text>
+
+<!-- Consolidation flow -->
+<text x="36" y="660" font-size="11" font-weight="600" fill="#a78bfa">压缩流程 (短期 → 长期)</text>
+<text x="36" y="676" font-size="11" fill="#6b7280">① should_compress(messages)</text>
+<text x="36" y="692" font-size="11" fill="#6b7280">   estimate_tokens() &gt; 10,000</text>
+<text x="36" y="708" font-size="11" fill="#6b7280">② summarize_conversation()</text>
+<text x="36" y="724" font-size="11" fill="#6b7280">   LLM → {summary, key_insights,</text>
+<text x="36" y="740" font-size="11" fill="#6b7280">   user_preferences, topics}</text>
+<text x="36" y="756" font-size="11" fill="#6b7280">③ create_memory() → DB</text>
+
+<!-- Arrow between columns -->
+<line x1="240" y1="660" x2="240" y2="756" stroke="#30363d" stroke-width="1" stroke-dasharray="3,3"/>
+
+<text x="256" y="660" font-size="11" fill="#6b7280">④ _store_memory_vectors()</text>
+<text x="256" y="676" font-size="11" fill="#6b7280">   generate_embedding(summary)</text>
+<text x="256" y="692" font-size="11" fill="#6b7280">   generate_embedding(insight_i)</text>
+<text x="256" y="708" font-size="11" fill="#6b7280">   generate_embedding(topics)</text>
+<text x="256" y="724" font-size="11" fill="#6b7280">   collection.insert() → flush()</text>
+<text x="256" y="740" font-size="11" fill="#6b7280">   memory.milvus_ids = [ids]</text>
+
+<!-- Vertical separator -->
+<line x1="800" y1="648" x2="800" y2="752" stroke="#30363d" stroke-width="1"/>
+
+<!-- Retrieval flow -->
+<text x="816" y="660" font-size="11" font-weight="600" fill="#60a5fa">检索流程 (长期 → 短期)</text>
+<text x="816" y="676" font-size="11" fill="#6b7280">① retrieve_memories(user_id, query, top_k=5)</text>
+<text x="816" y="692" font-size="11" fill="#6b7280">   generate_embedding(query)</text>
+<text x="816" y="708" font-size="11" fill="#6b7280">   Milvus COSINE search (filter: user_id)</text>
+<text x="816" y="724" font-size="11" fill="#6b7280">② build_memory_context(user_id, query, max=3)</text>
+<text x="816" y="740" font-size="11" fill="#6b7280">   去重 → 格式化 [相关历史记忆]</text>
+<text x="816" y="756" font-size="11" fill="#6b7280">③ ChatService 注入 LLM 提示词</text>
+
+<!-- ===== MULTI-AGENT SYSTEM ===== -->
+<rect x="20" y="778" width="1560" height="1118" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+<rect x="20" y="778" width="1560" height="44" rx="10" fill="url(#greenTitleGrad)"/>
+<rect x="20" y="808" width="1560" height="14" fill="url(#greenTitleGrad)"/>
+<rect x="20" y="820" width="1560" height="2" fill="#10b981" opacity="0.4"/>
+<text x="36" y="805" font-size="14" font-weight="600" fill="#34d399">多智能体系统</text>
+<text x="140" y="805" font-size="14" fill="#8b949e">Multi-Agent System · deep_research_v2/</text>
+<text x="1560" y="805" text-anchor="end" font-size="11" fill="#10b981">LangGraph workflow</text>
+
+<!-- Shared state bar -->
+<rect x="38" y="832" width="1524" height="38" rx="6" fill="#1a1040" stroke="#6e40c9" stroke-width="1"/>
+<text x="800" y="847" text-anchor="middle" font-size="11" font-weight="600" fill="#c084fc">共享状态 ResearchState (TypedDict)</text>
+<text x="800" y="862" text-anchor="middle" font-size="10" fill="#8b949e">所有智能体读写同一状态字典，通过 LangGraph 节点传递 · BaseAgent.add_message() 推送 SSE 事件</text>
+
+<!-- ===== AGENT ROW 1 ===== -->
+<!-- ChiefArchitect -->
+<rect x="38" y="882" width="490" height="248" rx="8" fill="#1c2128" stroke="#6e40c9" stroke-width="1.2"/>
+<rect x="38" y="882" width="490" height="32" rx="8" fill="#2d1b69" opacity="0.7"/>
+<rect x="38" y="902" width="490" height="12" fill="#2d1b69" opacity="0.7"/>
+<text x="54" y="903" font-size="12" font-weight="700" fill="#c084fc">ChiefArchitect</text>
+<text x="160" y="903" font-size="11" fill="#6b7280">首席架构师 · architect.py</text>
+<text x="54" y="928" font-size="11" font-weight="600" fill="#a78bfa">写入共享状态</text>
+<text x="54" y="944" font-size="11" fill="#8b949e">outline <tspan fill="#6b7280">(List[Section])</tspan></text>
+<text x="54" y="960" font-size="11" fill="#8b949e">hypotheses <tspan fill="#6b7280">(假设驱动研究)</tspan></text>
+<text x="54" y="976" font-size="11" fill="#8b949e">research_questions</text>
+<text x="54" y="992" font-size="11" fill="#8b949e">knowledge_graph <tspan fill="#6b7280">(初始化)</tspan></text>
+<text x="54" y="1008" font-size="11" fill="#8b949e">key_entities · phase=PLANNING</text>
+<text x="54" y="1032" font-size="11" font-weight="600" fill="#a78bfa">读取共享状态</text>
+<text x="54" y="1048" font-size="11" fill="#6b7280">query · outline · facts</text>
+<text x="54" y="1072" font-size="11" font-weight="600" fill="#6b7280">独立记忆: 无</text>
+<text x="54" y="1088" font-size="11" fill="#6b7280">纯状态读写，无实例级缓存</text>
+<text x="54" y="1112" font-size="10" fill="#4b5563">max_iterations=3 · 假设驱动 → 证据收集</text>
+
+<!-- DeepScout -->
+<rect x="556" y="882" width="490" height="248" rx="8" fill="#1c2128" stroke="#f59e0b" stroke-width="1.2"/>
+<rect x="556" y="882" width="490" height="32" rx="8" fill="#451a03" opacity="0.7"/>
+<rect x="556" y="902" width="490" height="12" fill="#451a03" opacity="0.7"/>
+<text x="572" y="903" font-size="12" font-weight="700" fill="#fbbf24">DeepScout</text>
+<text x="650" y="903" font-size="11" fill="#6b7280">深度侦探 · scout.py</text>
+<text x="572" y="928" font-size="11" font-weight="600" fill="#fbbf24">写入共享状态</text>
+<text x="572" y="944" font-size="11" fill="#8b949e">facts <tspan fill="#6b7280">(List[Fact] + credibility_score)</tspan></text>
+<text x="572" y="960" font-size="11" fill="#8b949e">data_points <tspan fill="#6b7280">(List[DataPoint])</tspan></text>
+<text x="572" y="976" font-size="11" fill="#8b949e">knowledge_graph <tspan fill="#6b7280">(nodes/edges)</tspan></text>
+<text x="572" y="992" font-size="11" fill="#8b949e">insights · phase=RESEARCHING</text>
+<text x="572" y="1008" font-size="11" fill="#8b949e">pending_search_queries <tspan fill="#6b7280">(清空)</tspan></text>
+<text x="572" y="1032" font-size="11" font-weight="600" fill="#fbbf24">独立记忆 (实例级)</text>
+<text x="572" y="1048" font-size="11" fill="#fbbf24">search_cache <tspan fill="#6b7280">(Dict, 按query hash)</tspan></text>
+<text x="572" y="1064" font-size="11" fill="#fbbf24">fact_fingerprints <tspan fill="#6b7280">(去重)</tspan></text>
+<text x="572" y="1080" font-size="11" fill="#fbbf24">milvus_service <tspan fill="#6b7280">(本地知识库)</tspan></text>
+<text x="572" y="1104" font-size="10" fill="#4b5563">递归搜索 · 信源评级 · 交叉验证 · 并行搜索</text>
+
+<!-- DataAnalyst -->
+<rect x="1074" y="882" width="490" height="248" rx="8" fill="#1c2128" stroke="#3b82f6" stroke-width="1.2"/>
+<rect x="1074" y="882" width="490" height="32" rx="8" fill="#0c2a5e" opacity="0.7"/>
+<rect x="1074" y="902" width="490" height="12" fill="#0c2a5e" opacity="0.7"/>
+<text x="1090" y="903" font-size="12" font-weight="700" fill="#60a5fa">DataAnalyst</text>
+<text x="1178" y="903" font-size="11" fill="#6b7280">数据分析师 · data_analyst.py</text>
+<text x="1090" y="928" font-size="11" font-weight="600" fill="#60a5fa">写入共享状态</text>
+<text x="1090" y="944" font-size="11" fill="#8b949e">charts <tspan fill="#6b7280">(List[ECharts config])</tspan></text>
+<text x="1090" y="960" font-size="11" fill="#8b949e">knowledge_graph <tspan fill="#6b7280">(完整图谱)</tspan></text>
+<text x="1090" y="976" font-size="11" fill="#8b949e">insights <tspan fill="#6b7280">(追加)</tspan></text>
+<text x="1090" y="992" font-size="11" fill="#8b949e">code_executions</text>
+<text x="1090" y="1016" font-size="11" font-weight="600" fill="#60a5fa">读取共享状态</text>
+<text x="1090" y="1032" font-size="11" fill="#6b7280">query · facts · data_points</text>
+<text x="1090" y="1056" font-size="11" font-weight="600" fill="#6b7280">独立记忆: 无</text>
+<text x="1090" y="1072" font-size="11" fill="#6b7280">纯状态读写，无实例级缓存</text>
+<text x="1090" y="1096" font-size="10" fill="#4b5563">数据提取 · ECharts可视化 · 知识图谱构建</text>
+
+<!-- ===== AGENT ROW 2 ===== -->
+<!-- LeadWriter -->
+<rect x="38" y="1148" width="490" height="248" rx="8" fill="#1c2128" stroke="#10b981" stroke-width="1.2"/>
+<rect x="38" y="1148" width="490" height="32" rx="8" fill="#0a3320" opacity="0.7"/>
+<rect x="38" y="1168" width="490" height="12" fill="#0a3320" opacity="0.7"/>
+<text x="54" y="1169" font-size="12" font-weight="700" fill="#34d399">LeadWriter</text>
+<text x="140" y="1169" font-size="11" fill="#6b7280">首席撰稿人 · writer.py</text>
+<text x="54" y="1194" font-size="11" font-weight="600" fill="#34d399">写入共享状态</text>
+<text x="54" y="1210" font-size="11" fill="#8b949e">draft_sections <tspan fill="#6b7280">(Dict[id→content])</tspan></text>
+<text x="54" y="1226" font-size="11" fill="#8b949e">final_report <tspan fill="#6b7280">(Markdown)</tspan></text>
+<text x="54" y="1242" font-size="11" fill="#8b949e">references <tspan fill="#6b7280">(List[citation])</tspan></text>
+<text x="54" y="1258" font-size="11" fill="#8b949e">phase=WRITING</text>
+<text x="54" y="1282" font-size="11" font-weight="600" fill="#34d399">读取共享状态</text>
+<text x="54" y="1298" font-size="11" fill="#6b7280">outline · facts · data_points</text>
+<text x="54" y="1314" font-size="11" fill="#6b7280">insights · charts</text>
+<text x="54" y="1338" font-size="11" font-weight="600" fill="#6b7280">独立记忆: 无</text>
+<text x="54" y="1354" font-size="11" fill="#6b7280">纯状态读写，无实例级缓存</text>
+<text x="54" y="1378" font-size="10" fill="#4b5563">章节草稿 → 最终报告 · 修订循环</text>
+
+<!-- CriticMaster -->
+<rect x="556" y="1148" width="490" height="248" rx="8" fill="#1c2128" stroke="#ef4444" stroke-width="1.2"/>
+<rect x="556" y="1148" width="490" height="32" rx="8" fill="#450a0a" opacity="0.7"/>
+<rect x="556" y="1168" width="490" height="12" fill="#450a0a" opacity="0.7"/>
+<text x="572" y="1169" font-size="12" font-weight="700" fill="#f87171">CriticMaster</text>
+<text x="668" y="1169" font-size="11" fill="#6b7280">对抗审核官 · critic.py</text>
+<text x="572" y="1194" font-size="11" font-weight="600" fill="#f87171">写入共享状态</text>
+<text x="572" y="1210" font-size="11" fill="#8b949e">critic_feedback <tspan fill="#6b7280">(issue_type/severity)</tspan></text>
+<text x="572" y="1226" font-size="11" fill="#8b949e">quality_score <tspan fill="#6b7280">(float 1-10)</tspan></text>
+<text x="572" y="1242" font-size="11" fill="#8b949e">unresolved_issues <tspan fill="#6b7280">(int)</tspan></text>
+<text x="572" y="1258" font-size="11" fill="#8b949e">pending_search_queries <tspan fill="#6b7280">(补充搜索)</tspan></text>
+<text x="572" y="1274" font-size="11" fill="#8b949e">phase=REVIEWING / RE_RESEARCHING</text>
+<text x="572" y="1298" font-size="11" font-weight="600" fill="#f87171">读取共享状态</text>
+<text x="572" y="1314" font-size="11" fill="#6b7280">query · outline · final_report</text>
+<text x="572" y="1330" font-size="11" fill="#6b7280">facts · data_points</text>
+<text x="572" y="1354" font-size="11" font-weight="600" fill="#6b7280">独立记忆: 无</text>
+<text x="572" y="1378" font-size="10" fill="#4b5563">缺失来源/逻辑错误/幻觉/偏见 检测</text>
+
+<!-- Wizard -->
+<rect x="1074" y="1148" width="490" height="248" rx="8" fill="#1c2128" stroke="#8b5cf6" stroke-width="1.2"/>
+<rect x="1074" y="1148" width="490" height="32" rx="8" fill="#2e1065" opacity="0.7"/>
+<rect x="1074" y="1168" width="490" height="12" fill="#2e1065" opacity="0.7"/>
+<text x="1090" y="1169" font-size="12" font-weight="700" fill="#a78bfa">Wizard</text>
+<text x="1148" y="1169" font-size="11" fill="#6b7280">魔法师 · wizard.py</text>
+<text x="1090" y="1194" font-size="11" font-weight="600" fill="#a78bfa">写入共享状态</text>
+<text x="1090" y="1210" font-size="11" fill="#8b949e">charts <tspan fill="#6b7280">(ECharts 配置)</tspan></text>
+<text x="1090" y="1226" font-size="11" fill="#8b949e">code_executions <tspan fill="#6b7280">(代码执行记录)</tspan></text>
+<text x="1090" y="1242" font-size="11" fill="#8b949e">insights <tspan fill="#6b7280">(追加)</tspan></text>
+<text x="1090" y="1266" font-size="11" font-weight="600" fill="#a78bfa">读取共享状态</text>
+<text x="1090" y="1282" font-size="11" fill="#6b7280">facts · data_points · outline</text>
+<text x="1090" y="1306" font-size="11" font-weight="600" fill="#6b7280">独立记忆: 无</text>
+<text x="1090" y="1322" font-size="11" fill="#6b7280">纯状态读写，无实例级缓存</text>
+<text x="1090" y="1346" font-size="11" fill="#6b7280">专注代码生成与图表渲染</text>
+<text x="1090" y="1378" font-size="10" fill="#4b5563">Python代码生成 · 图表渲染 · 数据可视化</text>
+
+<!-- ===== WORKFLOW ARROWS ===== -->
+<!-- Row 1 arrows -->
+<line x1="530" y1="1006" x2="554" y2="1006" stroke="#6b7280" stroke-width="1.5" marker-end="url(#mGray)"/>
+<line x1="1048" y1="1006" x2="1072" y2="1006" stroke="#6b7280" stroke-width="1.5" marker-end="url(#mGray)"/>
+<!-- Row 1 to Row 2 arrows -->
+<line x1="283" y1="1132" x2="283" y2="1146" stroke="#6b7280" stroke-width="1.5" marker-end="url(#mGray)"/>
+<line x1="801" y1="1132" x2="801" y2="1146" stroke="#6b7280" stroke-width="1.5" marker-end="url(#mGray)"/>
+<!-- CriticMaster back to DeepScout (re-research loop) -->
+<path d="M 801 1148 Q 801 1120 556 1006" stroke="#ef4444" stroke-width="1.2" fill="none" stroke-dasharray="4,3" marker-end="url(#mGray)" opacity="0.6"/>
+<text x="620" y="1138" font-size="9" fill="#ef4444" opacity="0.8">补充搜索循环</text>
+
+<!-- ===== CHECKPOINT SERVICE ===== -->
+<rect x="38" y="1414" width="1524" height="162" rx="8" fill="#1c2128" stroke="#30363d" stroke-width="1.2"/>
+<rect x="38" y="1414" width="1524" height="32" rx="8" fill="#1a1a2e" opacity="0.8"/>
+<rect x="38" y="1434" width="1524" height="12" fill="#1a1a2e" opacity="0.8"/>
+<rect x="38" y="1444" width="1524" height="2" fill="#6b7280" opacity="0.3"/>
+<text x="54" y="1435" font-size="12" font-weight="600" fill="#9ca3af">CheckpointService</text>
+<text x="178" y="1435" font-size="11" fill="#6b7280">· checkpoint_service.py · ResearchCheckpoint (models/research.py)</text>
+<text x="1540" y="1435" text-anchor="end" font-size="11" fill="#6b7280">PostgreSQL 持久化</text>
+<!-- Left: fields -->
+<text x="54" y="1462" font-size="11" font-weight="600" fill="#9ca3af">DB 字段</text>
+<text x="54" y="1478" font-size="11" fill="#6b7280">session_id · user_id · query · phase · iteration · status</text>
+<text x="54" y="1494" font-size="11" fill="#6b7280">state_json <tspan fill="#8b949e">(JSONB · 完整 ResearchState)</tspan></text>
+<text x="54" y="1510" font-size="11" fill="#6b7280">ui_state_json <tspan fill="#8b949e">(JSONB · 前端 UI 状态: research_steps/search_results/charts/knowledge_graph)</tspan></text>
+<text x="54" y="1526" font-size="11" fill="#6b7280">final_report <tspan fill="#8b949e">(Text)</tspan>  ·  error_message  ·  updated_at</text>
+<!-- Right: methods -->
+<line x1="800" y1="1450" x2="800" y2="1562" stroke="#30363d" stroke-width="1" stroke-dasharray="3,3"/>
+<text x="816" y="1462" font-size="11" font-weight="600" fill="#9ca3af">方法</text>
+<text x="816" y="1478" font-size="11" fill="#6b7280">save_checkpoint(session_id, state, ui_state, final_report)</text>
+<text x="816" y="1494" font-size="11" fill="#6b7280">load_checkpoint(session_id) → state_json</text>
+<text x="816" y="1510" font-size="11" fill="#6b7280">load_full_checkpoint(session_id) → state + ui_state + report</text>
+<text x="816" y="1526" font-size="11" fill="#6b7280">update_status(session_id, status) · delete_checkpoint()</text>
+<text x="816" y="1542" font-size="11" fill="#6b7280">_clean_state_for_storage() → JSON 序列化清理</text>
+<text x="816" y="1558" font-size="10" fill="#4b5563">status: running / paused / completed / failed</text>
+
+<!-- Checkpoint arrows from agents -->
+<line x1="800" y1="1398" x2="800" y2="1412" stroke="#6b7280" stroke-width="1.5" marker-end="url(#mGray)"/>
+<text x="810" y="1408" font-size="9" fill="#6b7280">save/load</text>
+
+<!-- ===== LEGEND ===== -->
+<rect x="38" y="1594" width="1524" height="88" rx="6" fill="#1c2128" stroke="#30363d" stroke-width="1"/>
+<text x="54" y="1614" font-size="11" font-weight="600" fill="#8b949e">图例 Legend</text>
+<!-- Legend items -->
+<rect x="54" y="1624" width="12" height="12" rx="2" fill="none" stroke="#6e40c9" stroke-width="1.5"/>
+<text x="72" y="1635" font-size="10" fill="#8b949e">短期记忆 / 共享状态</text>
+<rect x="200" y="1624" width="12" height="12" rx="2" fill="none" stroke="#3b82f6" stroke-width="1.5"/>
+<text x="218" y="1635" font-size="10" fill="#8b949e">长期记忆 / PostgreSQL</text>
+<rect x="360" y="1624" width="12" height="12" rx="2" fill="none" stroke="#34d399" stroke-width="1.5"/>
+<text x="378" y="1635" font-size="10" fill="#8b949e">Milvus 向量库</text>
+<rect x="480" y="1624" width="12" height="12" rx="2" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+<text x="498" y="1635" font-size="10" fill="#fbbf24">独立记忆 (DeepScout 专属)</text>
+<rect x="660" y="1624" width="12" height="12" rx="2" fill="none" stroke="#ef4444" stroke-width="1.5"/>
+<text x="678" y="1635" font-size="10" fill="#8b949e">审核反馈循环</text>
+<line x1="54" y1="1656" x2="90" y2="1656" stroke="#a855f7" stroke-width="2" marker-end="url(#mPurple)"/>
+<text x="96" y="1660" font-size="10" fill="#8b949e">压缩 (短期→长期)</text>
+<line x1="220" y1="1656" x2="256" y2="1656" stroke="#3b82f6" stroke-width="2" marker-end="url(#mGray)"/>
+<text x="262" y="1660" font-size="10" fill="#8b949e">检索 (长期→短期)</text>
+<line x1="380" y1="1656" x2="416" y2="1656" stroke="#6b7280" stroke-width="1.5" marker-end="url(#mGray)"/>
+<text x="422" y="1660" font-size="10" fill="#8b949e">工作流传递</text>
+<line x1="510" y1="1656" x2="546" y2="1656" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#mGray)"/>
+<text x="552" y="1660" font-size="10" fill="#8b949e">条件循环</text>
+<text x="1540" y="1660" text-anchor="end" font-size="10" fill="#4b5563">memory_service.py · session_service.py · checkpoint_service.py · deep_research_v2/state.py</text>
+
+<!-- ===== FOOTER ===== -->
+<rect x="0" y="1700" width="1600" height="2" fill="#30363d" opacity="0.5"/>
+<text x="800" y="1720" text-anchor="middle" font-size="11" fill="#4b5563">DeepResearch 行业研究助手 · 记忆架构图 · 2026</text>
+
+</svg>
+</body>
+</html>

@@ -1,0 +1,163 @@
+@use '_tokens' as *;
+
+.newchat-page {
+  padding: 28px 40px;
+  margin: 0 auto;
+  max-width: 862px;
+  min-width: 400px;
+
+  .newchat-page__header {
+    text-align: center;
+    font-weight: 700;
+    font-size: 28px;
+    color: $text-primary;
+    @include accent-gradient-text;
+  }
+
+  .newchat-page__sender {
+    margin-top: 20px;
+  }
+
+  // 推荐问题区域 - 标题和问题在同一行
+  .newchat-page__questions-row {
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .questions-label {
+      font-size: 13px;
+      color: $text-muted;
+      flex-shrink: 0;
+    }
+
+    .questions-list {
+      display: flex;
+      gap: 12px;
+    }
+
+    .question-tag {
+      font-size: 12px;
+      color: $text-secondary;
+      cursor: pointer;
+      padding: 4px 12px;
+      border-radius: $radius-full;
+      background: $bg-card;
+      border: 1px solid $border-primary;
+      transition: all $transition-base;
+
+      &:hover {
+        color: $accent-blue;
+        border-color: $border-accent;
+        background: rgba(108, 92, 231, 0.08);
+      }
+
+      &::before {
+        content: '#';
+        color: $text-disabled;
+        margin-right: 2px;
+      }
+    }
+  }
+
+  // 热门资讯区域
+  .newchat-page__section {
+    margin-top: 24px;
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 12px;
+
+      .section-icon {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        > img {
+          width: 16px;
+          height: 16px;
+          opacity: 0.5;
+          filter: brightness(0) invert(0.7);
+        }
+      }
+
+      .section-title {
+        font-size: 13px;
+        font-weight: 500;
+        color: $text-muted;
+      }
+    }
+  }
+
+  // 热门资讯列表
+  .newchat-page__news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .newchat-page__news-card {
+    padding: 16px;
+    background: $bg-card;
+    border-radius: $radius-md;
+    border: 1px solid $border-primary;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    &:hover {
+      border-color: $border-hover;
+      box-shadow: $shadow-md;
+      transform: translateY(-1px);
+    }
+
+    .news-card__title {
+      font-size: 15px;
+      font-weight: 500;
+      color: $text-primary;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .news-card__info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+
+      .info-location {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 13px;
+        color: $text-secondary;
+      }
+    }
+
+    .news-card__meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+
+      .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 13px;
+        color: $text-muted;
+      }
+    }
+  }
+
+  .empty-hint {
+    padding: 20px;
+    text-align: center;
+    color: $text-muted;
+    font-size: 13px;
+  }
+}
